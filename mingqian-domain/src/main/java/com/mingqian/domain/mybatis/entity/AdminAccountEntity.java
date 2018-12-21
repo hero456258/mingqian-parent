@@ -5,8 +5,8 @@ import java.util.Date;
 /**
  * 
  *
- * @author wanggang
- * @date 2018-12-20
+ * @author admin
+ * @date 2018-12-21
  *
  */
 public class AdminAccountEntity {

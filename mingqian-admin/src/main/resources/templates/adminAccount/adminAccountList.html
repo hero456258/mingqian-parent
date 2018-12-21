@@ -1,0 +1,80 @@
+<#include "/commons/page_layout.html"/>
+<@html title="用户管理"></@html>
+<link rel="stylesheet" href="/mingqian/css/tableStyle.css">
+
+<@body>
+<div class="page-header">
+    <h1>员工列表</h1>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <button class="btn btn-info" type="button" id="addUser">添加用户</button>
+    </div>
+    <div class="col-sm-3 col-sm-offset-3">
+        <input type="text" id="name" class="form-control search-query" placeholder="用户姓名"/>
+    </div>
+    <div class="col-sm-3">
+        <span class="input-group-btn"> <button type="button" class="btn btn-inverse btn-white" id="select">查询 </button> </span>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="userTable"
+           role="grid"
+           cellspacing="0" width="100%" aria-describedby="dynamic-table_info">
+
+    </table>
+</div>
+
+<!--选择分组modal-->
+<div id="setPwdModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">设置密码</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-left">当前员工：</label>
+                        <div class="col-sm-9">
+                            <h5 id="boxRealName">小唐</h5>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-left">新密码：</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" id="newPwd" type="password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-left">确认新密码：</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" id="reNewPwd" type="password">
+                        </div>
+                    </div>
+                    <div class="space-4"></div>
+                    <div class="hr hr-24"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="modalSaveBut btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+</@body>
+<script type="text/javascript" src="/jquery-tmpl/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="/jquery-tmpl/jquery.tmplPlus.min.js"></script>
+<script src="/assets/js/wizard.min.js"></script>
+<link rel="stylesheet" href="/assets/css/dropzone.min.css">
+<script src="/assets/js/dropzone.min.js"></script>
+<script type="text/javascript" src="/dataTable/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/dataTable/js/dataTables.bootstrap.js"></script>
+<script src="/assets/js/bootbox.js"></script>
