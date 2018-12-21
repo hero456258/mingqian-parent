@@ -1,0 +1,106 @@
+<!--通用头文件-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="overview &amp; stats">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/font-awesome/4.5.0/css/font-awesome.min.css">
+<!-- text fonts -->
+<link rel="stylesheet" href="/assets/css/fonts.googleapis.com.css">
+<!-- ace styles -->
+<link rel="stylesheet" href="/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style">
+<!--[if lte IE 9]>
+<link rel="stylesheet" href="/assets/css/ace-part2.min.css" class="ace-main-stylesheet"/>
+<![endif]-->
+<link rel="stylesheet" href="/assets/css/ace-skins.min.css">
+<link rel="stylesheet" href="/assets/css/ace-rtl.min.css">
+<!--[if lte IE 9]>
+<link rel="stylesheet" href="/assets/css/ace-ie.min.css"/>
+<![endif]-->
+<script src="/assets/js/ace-extra.min.js"></script>
+<!--[if lte IE 8]>
+<script src="/assets/js/html5shiv.min.js"></script>
+<script src="/assets/js/respond.min.js"></script>
+<![endif]-->
+
+<script src="/assets/js/utils.js"></script>
+<!--基础js插件-->
+<!--[if !IE]> -->
+<script src="/assets/js/jquery-2.1.4.min.js"></script>
+<!-- <![endif]-->
+<!--[if IE]>
+<script src="/assets/js/jquery-1.11.3.min.js"></script>
+<![endif]-->
+<script type="text/javascript">
+    if('ontouchstart' in document.documentElement) document.write("<script src='/assets/js/jquery.mobile.custom.min.js>"+"<"+"/script>");
+</script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<!-- page specific plugin scripts -->
+<!--[if lte IE 8]>
+<script src="/assets/js/excanvas.min.js"></script>
+<![endif]-->
+<script src="/assets/js/jquery-ui.custom.min.js"></script>
+<script src="/assets/js/jquery.ui.touch-punch.min.js"></script>
+<script src="/assets/js/jquery.easypiechart.min.js"></script>
+<script src="/assets/js/jquery.sparkline.index.min.js"></script>
+<script src="/assets/js/jquery.flot.min.js"></script>
+<script src="/assets/js/jquery.flot.pie.min.js"></script>
+<script src="/assets/js/jquery.flot.resize.min.js"></script>
+<!-- ace scripts -->
+<script src="/assets/js/ace-elements.min.js"></script>
+<script src="/assets/js/ace.min.js"></script>
+<script src="/assets/js/json2.js"></script>
+<script src="/loading/spin.js"></script>
+<script src="/loading/jquery.spin.js"></script>
+<script type="text/javascript" src="/mingqian/js/common/header.js"></script>
+<script type="text/javascript" src="/mingqian/js/common/jquery.cookie.js"></script>
+<script type="text/javascript" src="/jquery-tmpl/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="/jquery-tmpl/jquery.tmplPlus.min.js"></script>
+<script type="text/javascript">
+    if (!this.web) {
+        this.web = {};
+        web.home = "${config.webBase}";
+        web.basePath = "${config.webBase}";
+        web.baseResPath = "${config.BaseResPath}";
+        web.uploadUrl = "${config.picUploadUrl}";
+        web.ShopApiUrl = "${config.ShopApiPath}";
+        web.cookieDomain = "${config.adminCookieDomain}"
+        web.wapBase="${config.wapBase}";
+    }
+
+    $.ajaxSetup({
+        global: true,
+        beforeSend : function(){
+            var option = {
+                lines: 9, // 花瓣数目
+                length: 1, // 花瓣长度
+                width: 10, // 花瓣宽度
+                radius: 15, // 花瓣距中心半径
+                shadow: false,
+                opacity:2/8
+            };
+            $("#loadingDiv").spin(option).show();
+        },
+        complete: function () {
+            $("#loadingDiv").empty().hide();
+        }
+    });
+    function nullToString(data) {
+        return data == null ? "" : data;
+    }
+</script>
+<style type="text/css">
+    .loadingFade {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 9999;
+        opacity: 0.3;
+        background-color: grey;
+    }
+    .table tr td{text-align: center}
+    .table th{text-align: center}
+    .dl-horizontal dt{line-height:27px}
+</style>

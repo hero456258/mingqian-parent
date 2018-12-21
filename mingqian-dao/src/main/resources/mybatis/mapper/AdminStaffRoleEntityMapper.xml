@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingqian.dao.mall.mapper.AdminStaffRoleEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.mingqian.domain.mybatis.entity.AdminStaffRoleEntity" >
+    <result column="ROLE_ID" property="roleId" jdbcType="BIGINT" />
+    <result column="STAFF_ID" property="staffId" jdbcType="BIGINT" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="CREATOR" property="creator" jdbcType="BIGINT" />
+  </resultMap>
+
+
+  <!--通过userId获取roleId-->
+  <select id="selectRoleIdBy" resultType="java.lang.Long">
+    select
+          ROLE_ID
+    from
+          ea_admin_staff_role_ref
+    where
+          STAFF_ID = #{userId}
+  </select>
+
+  <insert id="insert" parameterType="com.mingqian.domain.mybatis.entity.AdminStaffRoleEntity" >
+    insert into ea_admin_staff_role_ref (ROLE_ID, STAFF_ID, CREATE_TIME, 
+      UPDATE_TIME, CREATOR)
+    values (#{roleId,jdbcType=BIGINT}, #{staffId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mingqian.domain.mybatis.entity.AdminStaffRoleEntity" >
+    insert into ea_admin_staff_role_ref
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="staffId != null" >
+        STAFF_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="staffId != null" >
+        #{staffId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

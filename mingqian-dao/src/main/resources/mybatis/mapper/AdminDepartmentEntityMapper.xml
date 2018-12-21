@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingqian.dao.mall.mapper.AdminDepartmentEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.mingqian.domain.mybatis.entity.AdminDepartmentEntity" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="DEPARTMENT_NAME" property="departmentName" jdbcType="VARCHAR" />
+    <result column="DEPARTMENT_DESC" property="departmentDesc" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DELETED" property="deleted" jdbcType="CHAR" />
+    <result column="CAEATOR" property="caeator" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, DEPARTMENT_NAME, DEPARTMENT_DESC, CREATE_TIME, UPDATE_TIME, DELETED, CAEATOR
+  </sql>
+
+  <!--获取部门类表-->
+  <select id="selectDepartmentList" resultMap="BaseResultMap" parameterType="com.mingqian.domain.vo.department.DepartmentListVo">
+    select
+          <include refid="Base_Column_List" />
+    from
+          ea_admin_department
+    where
+          DELETED = '0'
+         <if test="departmentName != null and departmentName!=''">
+           and DEPARTMENT_NAME like CONCAT(CONCAT('%',#{departmentName}),'%')
+         </if>
+    limit #{rowStart}, #{rowEnd}
+  </select>
+
+  <!--获取部门数量-->
+  <select id="selectDepartmentCount" resultType="java.lang.Integer" parameterType="com.mingqian.domain.vo.department.DepartmentListVo">
+    select
+          count(*)
+    from
+          ea_admin_department
+    where
+          DELETED = '0'
+       <if test="departmentName != null and departmentName!=''">
+           and DEPARTMENT_NAME like CONCAT(CONCAT('%',#{departmentName}),'%')
+       </if>
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ea_admin_department
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ea_admin_department
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mingqian.domain.mybatis.entity.AdminDepartmentEntity" >
+    insert into ea_admin_department (ID, DEPARTMENT_NAME, DEPARTMENT_DESC, 
+      CREATE_TIME, UPDATE_TIME, DELETED, 
+      CAEATOR)
+    values (#{id,jdbcType=BIGINT}, #{departmentName,jdbcType=VARCHAR}, #{departmentDesc,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=CHAR}, 
+      #{caeator,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mingqian.domain.mybatis.entity.AdminDepartmentEntity" >
+    insert into ea_admin_department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="departmentName != null" >
+        DEPARTMENT_NAME,
+      </if>
+      <if test="departmentDesc != null" >
+        DEPARTMENT_DESC,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="deleted != null" >
+        DELETED,
+      </if>
+      <if test="caeator != null" >
+        CAEATOR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="departmentName != null" >
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentDesc != null" >
+        #{departmentDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=CHAR},
+      </if>
+      <if test="caeator != null" >
+        #{caeator,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mingqian.domain.mybatis.entity.AdminDepartmentEntity" >
+    update ea_admin_department
+    <set >
+      <if test="departmentName != null" >
+        DEPARTMENT_NAME = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentDesc != null" >
+        DEPARTMENT_DESC = #{departmentDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        DELETED = #{deleted,jdbcType=CHAR},
+      </if>
+      <if test="caeator != null" >
+        CAEATOR = #{caeator,jdbcType=BIGINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mingqian.domain.mybatis.entity.AdminDepartmentEntity" >
+    update ea_admin_department
+    set DEPARTMENT_NAME = #{departmentName,jdbcType=VARCHAR},
+      DEPARTMENT_DESC = #{departmentDesc,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      DELETED = #{deleted,jdbcType=CHAR},
+      CAEATOR = #{caeator,jdbcType=BIGINT}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

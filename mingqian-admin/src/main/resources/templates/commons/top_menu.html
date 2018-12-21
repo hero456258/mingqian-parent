@@ -1,0 +1,109 @@
+<div class="sidebar h-sidebar navbar-collapse collapse ace-save-state" id="sidebar2" data-sidebar="true"
+     data-sidebar-scroll="true" data-sidebar-hover="true">
+    <ul class="nav nav-list" style="top: 0px;">
+        <li class="hover">
+            <a href="index.html">
+                <i class="menu-icon fa fa-tachometer"></i>
+                <span class="menu-text"> 平台设置 </span>
+            </a>
+
+        </li>
+
+        <li class="hover">
+            <a href="index.html">
+                <i class="menu-icon fa fa-tachometer"></i>
+                <span class="menu-text"> 平台设置 </span>
+            </a>
+
+        </li>
+        <li class="hover">
+            <a href="index.html">
+                <i class="menu-icon fa fa-tachometer"></i>
+                <span class="menu-text"> 平台设置 </span>
+            </a>
+
+        </li>
+        <li class="hover">
+            <a href="index.html">
+                <i class="menu-icon fa fa-tachometer"></i>
+                <span class="menu-text"> 平台设置 </span>
+            </a>
+
+        </li>
+        <li class="hover">
+            <a href="index.html">
+                <i class="menu-icon fa fa-tachometer"></i>
+                <span class="menu-text"> 平台设置 </span>
+            </a>
+
+        </li>
+
+            </ul><div class="scroll-track scroll-detached no-track scroll-thin scroll-margin scroll-visible" style="display: none; top: 68px; left: 183px;"><div class="scroll-bar" style="top: 0px;"></div></div>
+        </li>
+    </ul>
+<!-- /.nav-list -->
+</div>
+<#noparse>
+    <script id="leftMenuTmpl" type="text/x-jquery-tmpl">
+    <li class="open"><a class="dropdown-toggle" href="#"> <i class="menu-icon fa fa-desktop"></i> <span
+            class="menu-text"> {{= parentMenu}} </span> <b class="arrow fa fa-angle-down"></b> </a> <b
+            class="arrow"></b>
+        <ul class="submenu nav-show">
+        {{each childMenu}}
+            <li {{if checked == true }}class="active"{{/if}}>
+                <a href="${link}"> <i class="menu-icon fa fa-caret-right"></i>${name}</a>
+                <b class="arrow"></b>
+            </li>
+        {{/each}}
+        </ul>
+    </li>
+</script>
+</#noparse>
+<script type="text/javascript">
+    $(function () {
+        //顶部菜单自动选中
+        menuAutoCheck();
+
+        //顶部菜单点击事件
+        $(".topMenu li").click(function () {
+            $(this).siblings().removeClass("active");
+            $(this).addClass("active");
+            //自动加载第一个菜单
+            var defLink = $("ul.topMenu li.active").find(".childTarget p").eq(0).attr("attr_l");
+            window.location.href = defLink;
+//            showLeftMenu();
+        });
+
+        //自动加载左侧菜单
+        function showLeftMenu() {
+            var currentMenu = $("ul.topMenu li.active").find("a span").html();
+            var childMenu = [];
+            var webUrl = document.URL;
+            $("ul.topMenu li.active").find(".childTarget p").each(function () {
+                var name = $(this).attr("attr_n");
+                var link = $(this).attr("attr_l");
+                var checked = false;
+                if(webUrl == link){
+                    checked = true;
+                }
+                childMenu.push({"name":name,"link":link,"checked":checked});
+            });
+            var data = {};
+            data.parentMenu = currentMenu;
+            data.childMenu = childMenu;
+            $(".leftMenu").empty().append($("#leftMenuTmpl").tmpl(data));
+        }
+
+        function menuAutoCheck(){
+            var webUrl = document.URL;
+            $(".childTarget p").each(function () {
+                var link = $(this).attr("attr_l");
+                if(webUrl == link){
+                    $(this).parent().parent().addClass("active");
+                    return false;
+                }
+            });
+            showLeftMenu();
+        }
+    });
+</script>
