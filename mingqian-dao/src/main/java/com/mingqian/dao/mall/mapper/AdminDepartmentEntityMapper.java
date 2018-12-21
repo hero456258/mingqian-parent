@@ -3,6 +3,7 @@ package com.mingqian.dao.mall.mapper;
 
 import com.mingqian.domain.mybatis.entity.AdminDepartmentEntity;
 import com.mingqian.domain.vo.department.DepartmentListVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,4 +23,10 @@ public interface AdminDepartmentEntityMapper {
     List<AdminDepartmentEntity> selectDepartmentList(DepartmentListVo departmentListVo);
 
     int selectDepartmentCount(DepartmentListVo departmentListVo);
+
+    AdminDepartmentEntity selectDepartmentBy(@Param("id") Long id);
+
+    int updateDepartment(@Param("id") long id, @Param("departmentName") String departmentName, @Param("departmentDesc") String departmentDesc);
+
+    int deleteDepartmentBy(@Param("id") Long id);
 }

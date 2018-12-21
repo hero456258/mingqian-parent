@@ -41,6 +41,37 @@
        </if>
   </select>
 
+  <!--通过部门id获取部门信息-->
+  <select id="selectDepartmentBy" resultMap="BaseResultMap">
+    select
+          <include refid="Base_Column_List" />
+    from
+          ea_admin_department
+    where
+          ID=#{id}
+  </select>
+
+  <!--修改部门信息-->
+  <update id="updateDepartment" >
+    update
+          ea_admin_department
+    set
+          DEPARTMENT_NAME = #{departmentName},
+          DEPARTMENT_DESC = #{departmentDesc}
+    where
+          ID = #{id}
+  </update>
+
+  <!--删除部门信息-->
+  <update id="deleteDepartmentBy">
+    update
+            ea_admin_department
+    set
+            DELETED = '1'
+    where
+            ID = #{id}
+  </update>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />

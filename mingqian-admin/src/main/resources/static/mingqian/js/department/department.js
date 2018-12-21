@@ -56,7 +56,7 @@ function loadTableData(isV, obj, showWarning) {
             {
                 "data": "id", "sClass": "hiddenCol", "title": "操作", "bVisible": true,
                 "render": function (data, type, full, meta) {
-                    return '<a href="javascript:redactDepartment(' + data + ')">编辑</a> | <a href="javascript:deleteDepartment(' + data + ')">删除</a>';
+                    return '<a href="javascript:modifyDepartment(' + data + ')">编辑</a> | <a href="javascript:deleteDepartment(' + data + ')">删除</a>';
                 }
             }
         ]
@@ -65,8 +65,8 @@ function loadTableData(isV, obj, showWarning) {
 }
 
 
-function redactDepartment(id) {
-    window.location.href = web.basePath + "/department/toRedact?id=" + id;
+function modifyDepartment(id) {
+    window.location.href = web.basePath + "/department/toEditDepartmentPage/" + id;
 }
 
 function deleteDepartment(id) {
@@ -85,8 +85,8 @@ function deleteDepartment(id) {
                         alert(data.msg);
                         return false;
                     }
-                    alert("提交完成");
-                    window.location.href = web.basePath + "/department/toList";
+                    alert("删除成功");
+                    window.location.reload();
                 }
             });
 

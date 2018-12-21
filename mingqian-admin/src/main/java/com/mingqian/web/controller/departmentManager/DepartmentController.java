@@ -4,10 +4,14 @@ import com.mingqian.domain.base.PageBean;
 import com.mingqian.domain.mybatis.entity.AdminDepartmentEntity;
 import com.mingqian.domain.vo.department.DepartmentListVo;
 import com.mingqian.service.department.DepartmentService;
+import com.mingqian.web.common.AdminErrorCode;
 import com.mingqian.web.common.ApiResult;
 import com.mingqian.web.common.ApiResultUtil;
+import com.mingqian.web.common.ApiResulter;
 import com.mingqian.web.interceptor.annotation.LoginVerify;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,7 +23,7 @@ import javax.annotation.Resource;
 @Controller
 @RequestMapping("/department")
 @LoginVerify
-public class DepartmentController  {
+public class DepartmentController {
 
     @Resource
     private DepartmentService departmentService;
@@ -35,4 +39,26 @@ public class DepartmentController  {
         PageBean<AdminDepartmentEntity> pages = departmentService.queryDepartmentList(departmentListVo);
         return ApiResultUtil.ok(pages);
     }
+
+    @RequestMapping("/toEditDepartmentPage/{id}")
+    public String toEditDepartmentPage(@PathVariable("id") Long id, Model model) {
+        AdminDepartmentEntity adminDepartmentEntity = departmentService.queryDepartmentBy(id);
+        model.addAttribute("departEntity", adminDepartmentEntity);
+        return "/department/editDepartment";
+    }
+
+    @RequestMapping("/modifyDepartment")
+    @ResponseBody
+    public ApiResult modifyDepartment(long id, String departmentName, String departmentDesc) {
+        boolean result = departmentService.modifyDepartment(id, departmentName, departmentDesc);
+        return result ? ApiResulter.ok() : ApiResulter.error(AdminErrorCode.SYS_ERROR);
+    }
+
+    @RequestMapping("/deleteDepartment")
+    @ResponseBody
+    public ApiResult deleteDepartment(Long id){
+        boolean result = departmentService.deleteDepartmentBy(id);
+        return result ? ApiResulter.ok() : ApiResulter.error(AdminErrorCode.SYS_ERROR);
+    }
+
 }

@@ -14,4 +14,27 @@ public interface DepartmentService {
      * @return
      */
     PageBean<AdminDepartmentEntity> queryDepartmentList(DepartmentListVo departmentListVo);
+
+    /**
+     * 通过部门id获取部门信息
+     * @param id
+     * @return
+     */
+    AdminDepartmentEntity queryDepartmentBy(Long id);
+
+    /**
+     * 修改部门信息
+     * @param id
+     * @param departmentName
+     * @param departmentDesc
+     * @return
+     */
+    boolean modifyDepartment(long id, String departmentName, String departmentDesc);
+
+    /**
+     * 通过id删除部门
+     * @param id
+     * @return
+     */
+    boolean deleteDepartmentBy(Long id);
 }

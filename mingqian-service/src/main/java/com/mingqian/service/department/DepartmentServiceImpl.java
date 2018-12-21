@@ -31,4 +31,19 @@ public class DepartmentServiceImpl implements DepartmentService{
         int count = adminDepartmentEntityMapper.selectDepartmentCount(departmentListVo);
         return PageBeanUtils.make(list, count);
     }
+
+    @Override
+    public AdminDepartmentEntity queryDepartmentBy(Long id) {
+        return adminDepartmentEntityMapper.selectDepartmentBy(id);
+    }
+
+    @Override
+    public boolean modifyDepartment(long id, String departmentName, String departmentDesc) {
+        return adminDepartmentEntityMapper.updateDepartment(id, departmentName, departmentDesc) > 0;
+    }
+
+    @Override
+    public boolean deleteDepartmentBy(Long id) {
+        return adminDepartmentEntityMapper.deleteDepartmentBy(id) > 0;
+    }
 }
