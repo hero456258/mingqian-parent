@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/mingqian-admin/mingqian-admin.iml" filepath="$PROJECT_DIR$/mingqian-admin/mingqian-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mingqian-common/mingqian-common.iml" filepath="$PROJECT_DIR$/mingqian-common/mingqian-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mingqian-dao/mingqian-dao.iml" filepath="$PROJECT_DIR$/mingqian-dao/mingqian-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mingqian-domain/mingqian-domain.iml" filepath="$PROJECT_DIR$/mingqian-domain/mingqian-domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mingqian-parent.iml" filepath="$PROJECT_DIR$/mingqian-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mingqian-service/mingqian-service.iml" filepath="$PROJECT_DIR$/mingqian-service/mingqian-service.iml" />
+    </modules>
+  </component>
+</project>

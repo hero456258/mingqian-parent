@@ -21,6 +21,7 @@
         <module>mingqian-service</module>
         <module>mingqian-dao</module>
         <module>mingqian-admin</module>
+        <module>mingqian-common</module>
     </modules>
 
     <properties>
@@ -37,6 +38,12 @@
             <dependency>
                 <groupId>com.mingqian</groupId>
                 <artifactId>mingqian-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.mingqian</groupId>
+                <artifactId>mingqian-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
