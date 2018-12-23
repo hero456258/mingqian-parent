@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingqian.dao.mall.mapper.AdminRoleEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.mingqian.domain.mybatis.entity.AdminRoleEntity" >
+    <id column="ROLE_ID" property="roleId" jdbcType="BIGINT" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROLE_ID, ROLE_NAME, ROLE_DESC, CREATE_TIME, UPDATE_TIME, STATUS
+  </sql>
+
+  <!--通过roleId查询出roleName-->
+  <select id="selectRoleNameBy" resultType="java.lang.String">
+    select ROLE_NAME from ea_admin_role where ROLE_ID = #{roleId}
+  </select>
+
+  <!--查询出所有的角色-->
+  <select id="selectAllRoles" resultMap="BaseResultMap">
+    select
+          <include refid="Base_Column_List" />
+    from
+          ea_admin_role
+    where
+          STATUS = '1'
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ea_admin_role
+    where ROLE_ID = #{roleId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ea_admin_role
+    where ROLE_ID = #{roleId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mingqian.domain.mybatis.entity.AdminRoleEntity" >
+    insert into ea_admin_role (ROLE_ID, ROLE_NAME, ROLE_DESC, 
+      CREATE_TIME, UPDATE_TIME, STATUS
+      )
+    values (#{roleId,jdbcType=BIGINT}, #{roleName,jdbcType=VARCHAR}, #{roleDesc,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mingqian.domain.mybatis.entity.AdminRoleEntity" >
+    insert into ea_admin_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="roleName != null" >
+        ROLE_NAME,
+      </if>
+      <if test="roleDesc != null" >
+        ROLE_DESC,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDesc != null" >
+        #{roleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mingqian.domain.mybatis.entity.AdminRoleEntity" >
+    update ea_admin_role
+    <set >
+      <if test="roleName != null" >
+        ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDesc != null" >
+        ROLE_DESC = #{roleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where ROLE_ID = #{roleId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mingqian.domain.mybatis.entity.AdminRoleEntity" >
+    update ea_admin_role
+    set ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      ROLE_DESC = #{roleDesc,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=CHAR}
+    where ROLE_ID = #{roleId,jdbcType=BIGINT}
+  </update>
+</mapper>

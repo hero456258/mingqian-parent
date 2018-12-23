@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingqian.dao.mall.mapper.AdminStaffEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.mingqian.domain.mybatis.entity.AdminStaffEntity" >
+    <id column="STAFF_ID" property="staffId" jdbcType="BIGINT" />
+    <result column="STAFF_NAME" property="staffName" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="BIGINT" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DELETED" property="deleted" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    STAFF_ID, STAFF_NAME, PARENT_ID, CREATE_TIME, UPDATE_TIME, DELETED
+  </sql>
+
+  <select id="selectDepartmentId" resultType="java.lang.Long">
+    select PARENT_ID from ea_admin_staff where STAFF_ID = #{userId}
+  </select>
+
+  <insert id="insertAdminStaff" parameterType="com.mingqian.domain.mybatis.entity.AdminStaffEntity">
+    insert into ea_admin_staff (STAFF_ID, STAFF_NAME, PARENT_ID,
+      CREATE_TIME, UPDATE_TIME, DELETED
+      )
+    values (#{staffId,jdbcType=BIGINT}, #{staffName,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT},
+      sysdate(), sysdate(), #{deleted,jdbcType=CHAR}
+      )
+  </insert>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ea_admin_staff
+    where STAFF_ID = #{staffId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ea_admin_staff
+    where STAFF_ID = #{staffId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mingqian.domain.mybatis.entity.AdminStaffEntity" >
+    insert into ea_admin_staff (STAFF_ID, STAFF_NAME, PARENT_ID, 
+      CREATE_TIME, UPDATE_TIME, DELETED
+      )
+    values (#{staffId,jdbcType=BIGINT}, #{staffName,jdbcType=CHAR}, #{parentId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mingqian.domain.mybatis.entity.AdminStaffEntity" >
+    insert into ea_admin_staff
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="staffId != null" >
+        STAFF_ID,
+      </if>
+      <if test="staffName != null" >
+        STAFF_NAME,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="deleted != null" >
+        DELETED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="staffId != null" >
+        #{staffId,jdbcType=BIGINT},
+      </if>
+      <if test="staffName != null" >
+        #{staffName,jdbcType=CHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mingqian.domain.mybatis.entity.AdminStaffEntity" >
+    update ea_admin_staff
+    <set >
+      <if test="staffName != null" >
+        STAFF_NAME = #{staffName,jdbcType=CHAR},
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        DELETED = #{deleted,jdbcType=CHAR},
+      </if>
+    </set>
+    where STAFF_ID = #{staffId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mingqian.domain.mybatis.entity.AdminStaffEntity" >
+    update ea_admin_staff
+    set STAFF_NAME = #{staffName,jdbcType=CHAR},
+      PARENT_ID = #{parentId,jdbcType=BIGINT},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      DELETED = #{deleted,jdbcType=CHAR}
+    where STAFF_ID = #{staffId,jdbcType=BIGINT}
+  </update>
+</mapper>

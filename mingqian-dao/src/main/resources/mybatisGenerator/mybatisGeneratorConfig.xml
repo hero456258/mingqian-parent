@@ -50,8 +50,8 @@
         </javaClientGenerator>
 
         <!--对应数据库表 mysql可以加入主键自增 字段命名 忽略某字段等 -->
-        <table tableName="ea_admin_account"
-               domainObjectName="AdminAccountEntity" enableCountByExample="false"
+        <table tableName="ea_admin_role"
+               domainObjectName="AdminRoleEntity" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false" selectByExampleQueryId="fasle"/>
                <!--<table tableName="EC_MALL_ORDER"-->

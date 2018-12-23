@@ -13,6 +13,11 @@
     <result column="STATUS" property="status" jdbcType="CHAR" />
   </resultMap>
 
+  <sql id="Base_Column_List" >
+    USER_ID, LOGIN_NAME, LOGIN_PWD, REAL_NAME, EMAIL, EMP_CODE, CREATE_TIME, UPDATE_TIME, 
+    STATUS
+  </sql>
+
   <!--通过用户名和密码查询用户信息-->
   <select id="selectUserByUserNameAndPassword" resultMap="BaseResultMap">
     select
@@ -27,10 +32,70 @@
           STATUS = 1
   </select>
 
-  <sql id="Base_Column_List" >
-    USER_ID, LOGIN_NAME, LOGIN_PWD, REAL_NAME, EMAIL, EMP_CODE, CREATE_TIME, UPDATE_TIME, 
-    STATUS
-  </sql>
+  <select id="selectAdminAccountByUserNameAndPassword" resultMap="BaseResultMap">
+    select
+          <include refid="Base_Column_List" />
+    from
+           ea_admin_account
+    where
+           LOGIN_NAME = #{userName}
+    and
+           LOGIN_PWD = #{password}
+
+        <if test="status != null and status!=''">
+          and STATUS = #{status}
+        </if>
+  </select>
+  
+  <!--查询用户列表-->
+  <select id="selectAdminAccountList" parameterType="com.mingqian.domain.vo.adminAccount.AdminAccountParamVo" resultMap="BaseResultMap">
+    select
+           <include refid="Base_Column_List" />
+    from
+            ea_admin_account
+    where
+            1=1
+    and
+            STATUS = '1'
+
+            <if test="name != null and name!=''">
+                 and REAL_NAME like CONCAT(CONCAT('%',#{name}),'%')
+            </if>
+    order by
+            CREATE_TIME desc
+    limit
+            #{rowStart}, #{rowEnd}
+
+  </select>
+
+  <!--查询用户数量-->
+  <select id="selectAdminAccountCount" parameterType="com.mingqian.domain.vo.adminAccount.AdminAccountParamVo" resultType="java.lang.Integer">
+    select
+            count(*)
+    from
+            ea_admin_account
+    where
+            1=1
+    and
+            STATUS = '1'
+
+           <if test="name != null and name!=''">
+               and REAL_NAME like CONCAT(CONCAT('%',#{name}),'%')
+          </if>
+  </select>
+
+  <!--添加用户-->
+  <insert id="insertAdminAccount" parameterType="com.mingqian.domain.vo.adminAccount.AdminAccountVo">
+    insert into ea_admin_account (LOGIN_NAME, LOGIN_PWD,
+    REAL_NAME, EMAIL,
+    CREATE_TIME, UPDATE_TIME, STATUS
+    )
+    values ( #{loginName,jdbcType=VARCHAR}, #{loginPwd,jdbcType=VARCHAR},
+    #{realName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+    sysdate(), sysdate(), #{status,jdbcType=CHAR}
+    )
+  </insert>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />

@@ -72,6 +72,21 @@
             ID = #{id}
   </update>
 
+  <!--通过部门id查询部门名称-->
+  <select id="selectDepartmentNameBy" resultType="java.lang.String">
+    select DEPARTMENT_NAME from ea_admin_department where ID = #{departmentId}
+  </select>
+
+  <!--查询出所有部门信息-->
+  <select id="selectAllDepartments" resultMap="BaseResultMap">
+    select
+           <include refid="Base_Column_List" />
+    from
+           ea_admin_department
+    where
+           DELETED = '0'
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />

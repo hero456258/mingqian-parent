@@ -9,7 +9,7 @@ import java.util.Date;
  * @date 2018-12-20
  *
  */
-public class AdminStaffRoleEntity {
+public class AdminStaffRoleRefEntity {
     /** 角色id */
     private Long roleId;
 

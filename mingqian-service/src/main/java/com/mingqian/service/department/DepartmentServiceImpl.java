@@ -46,4 +46,20 @@ public class DepartmentServiceImpl implements DepartmentService{
     public boolean deleteDepartmentBy(Long id) {
         return adminDepartmentEntityMapper.deleteDepartmentBy(id) > 0;
     }
+
+    @Override
+    public String queryDepartmentNameBy(Long departmentId) {
+        return adminDepartmentEntityMapper.selectDepartmentNameBy(departmentId);
+    }
+
+    /**
+     * 查询出所有部门
+     *
+     * @return
+     */
+    @Override
+    public List<AdminDepartmentEntity> queryAllDepartments() {
+        return adminDepartmentEntityMapper.selectAllDepartments();
+    }
+
 }

@@ -29,4 +29,8 @@ public interface AdminDepartmentEntityMapper {
     int updateDepartment(@Param("id") long id, @Param("departmentName") String departmentName, @Param("departmentDesc") String departmentDesc);
 
     int deleteDepartmentBy(@Param("id") Long id);
+
+    String selectDepartmentNameBy(@Param("departmentId") Long departmentId);
+
+    List<AdminDepartmentEntity> selectAllDepartments();
 }

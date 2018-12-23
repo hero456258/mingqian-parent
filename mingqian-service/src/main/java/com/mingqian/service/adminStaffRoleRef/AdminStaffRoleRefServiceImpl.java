@@ -1,6 +1,7 @@
 package com.mingqian.service.adminStaffRoleRef;
 
-import com.mingqian.dao.mall.mapper.AdminStaffRoleEntityMapper;
+import com.mingqian.dao.mall.mapper.AdminStaffRoleRefEntityMapper;
+import com.mingqian.domain.mybatis.entity.AdminStaffRoleRefEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class AdminStaffRoleRefServiceImpl implements AdminStaffRoleRefService {
 
     @Autowired
-    private AdminStaffRoleEntityMapper adminStaffRoleEntityMapper;
+    private AdminStaffRoleRefEntityMapper adminStaffRoleRefEntityMapper;
     /**
      * 通过userId获取roleId
      *
@@ -20,6 +21,11 @@ public class AdminStaffRoleRefServiceImpl implements AdminStaffRoleRefService {
      */
     @Override
     public Long getRoleId(Long userId) {
-        return adminStaffRoleEntityMapper.selectRoleIdBy(userId);
+        return adminStaffRoleRefEntityMapper.selectRoleIdBy(userId);
+    }
+
+    @Override
+    public boolean addAdminStaffRoleRef(AdminStaffRoleRefEntity adminStaffRoleRefEntity) {
+        return adminStaffRoleRefEntityMapper.insertAdminStaffRoleRef(adminStaffRoleRefEntity) > 0;
     }
 }
