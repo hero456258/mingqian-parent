@@ -96,6 +96,39 @@
     )
   </insert>
 
+  <!--通过用户id获取用户信息-->
+  <select id="selectAdminAccountBy" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+          <include refid="Base_Column_List" />
+    from
+          ea_admin_account
+    where
+          USER_ID = #{id,jdbcType=BIGINT}
+  </select>
+
+  <!--修改用户信息-->
+  <update id="updateAdminAccount" parameterType="com.mingqian.domain.vo.adminAccount.AdminAccountVo">
+    update ea_admin_account
+    <set >
+      <if test="loginName != null" >
+        LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPwd != null" >
+        LOGIN_PWD = #{loginPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        REAL_NAME = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=BIGINT}
+  </update>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />

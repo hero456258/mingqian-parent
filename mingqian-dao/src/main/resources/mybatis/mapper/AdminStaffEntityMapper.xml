@@ -25,6 +25,26 @@
       sysdate(), sysdate(), #{deleted,jdbcType=CHAR}
       )
   </insert>
+  <!--修改用户信息-->
+  <update id="updateAdminStaff"  parameterType="com.mingqian.domain.mybatis.entity.AdminStaffEntity">
+    update ea_admin_staff
+    <set >
+      <if test="staffName != null" >
+        STAFF_NAME = #{staffName,jdbcType=CHAR},
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = sysdate(),
+      </if>
+      <if test="deleted != null" >
+        DELETED = #{deleted,jdbcType=CHAR},
+      </if>
+    </set>
+    where STAFF_ID = #{staffId,jdbcType=BIGINT}
+  </update>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />

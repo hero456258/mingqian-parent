@@ -23,5 +23,16 @@ public class AdminStaffServiceImpl implements AdminStaffService{
         return adminStaffEntityMapper.insertAdminStaff(adminStaffEntity) > 0;
     }
 
+    /**
+     * 修改用户信息
+     *
+     * @param adminStaffEntity
+     * @return
+     */
+    @Override
+    public boolean modifyAdminStaff(AdminStaffEntity adminStaffEntity) {
+        return adminStaffEntityMapper.updateAdminStaff(adminStaffEntity) > 0;
+    }
+
 
 }

@@ -12,6 +12,7 @@ import com.mingqian.web.common.AdminErrorCode;
 import com.mingqian.web.common.ApiResult;
 import com.mingqian.web.common.ApiResultUtil;
 import com.mingqian.web.common.ApiResulter;
+import com.mingqian.web.exception.ErrorInputException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -40,7 +41,7 @@ public class adminAccountController {
 
     @Resource
     private AdminRoleService adminRoleService;
-
+    
     @RequestMapping("/toList")
     public String toAdminAccountPage() {
         return "/adminAccount/adminAccountList";
@@ -72,6 +73,27 @@ public class adminAccountController {
     @ResponseBody
     public ApiResult addAdminAccount(@RequestBody AdminAccountVo accountVo){
         boolean result = adminAccountService.addAdminAccount(accountVo);
+        return result ? ApiResulter.ok() : ApiResulter.error(AdminErrorCode.SYS_ERROR);
+    }
+
+    @RequestMapping("/toEditAdminAccountPage")
+    public String toEditAdminAccountPage(Long id,Model model){
+        if(id == null ){
+            throw new ErrorInputException("参数为空！");
+        }
+        AdminAccountVo accountVo = adminAccountService.queryAdminAccountBy(id);
+        model.addAttribute("accountVo", accountVo);
+        List<AdminRoleEntity> roles = adminRoleService.queryAllRoles();
+        model.addAttribute("roles", roles);
+        List<AdminDepartmentEntity> departmentList = departmentService.queryAllDepartments();
+        model.addAttribute("departmentList", departmentList);
+        return "/adminAccount/editAdminAccount";
+    }
+
+    @RequestMapping("/updateAdminAccount")
+    @ResponseBody
+    public ApiResult updateAdminAccount(@RequestBody AdminAccountVo accountVo){
+        boolean result = adminAccountService.modifyAdminAccount(accountVo);
         return result ? ApiResulter.ok() : ApiResulter.error(AdminErrorCode.SYS_ERROR);
     }
 

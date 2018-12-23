@@ -18,4 +18,6 @@ public interface AdminStaffEntityMapper {
     Long selectDepartmentId(Long userId);
 
     int insertAdminStaff(AdminStaffEntity adminStaffEntity);
+
+    int updateAdminStaff(AdminStaffEntity adminStaffEntity);
 }

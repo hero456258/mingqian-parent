@@ -83,10 +83,13 @@ function loadTableData(isV, obj, showWarning) {
             {
                 "data": "userId", "sClass": "hiddenCol", "title": "操作", "width": "10%", "bVisible": true,
                 "render": function (data, type, full, meta) {
-                    return '<a href="javascript:redactUser(' + data + ')">编辑</a> | <a href="javascript:void(0)" name="resetPwd" attr_id="' + data + '" ' +
+                    return '<a href="javascript:editAdminAccount(' + data + ')">编辑</a> | <a href="javascript:void(0)" name="resetPwd" attr_id="' + data + '" ' +
                         'attr_name="' + full.realName + '" data-toggle="modal" data-target="#setPwdModal">设置密码</a> | <a href="javascript:deleteUser(' + data + ')">删除</a>';
                 }
             }
         ]
     });
 }
+    function editAdminAccount(id) {
+        window.location.href = web.basePath +  "/adminAccount/toEditAdminAccountPage?id="+id;
+    }

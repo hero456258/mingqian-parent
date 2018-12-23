@@ -11,4 +11,6 @@ public interface AdminStaffRoleRefEntityMapper {
     Long selectRoleIdBy(@Param("userId") Long userId);
 
     int insertAdminStaffRoleRef(AdminStaffRoleRefEntity adminStaffRoleRefEntity);
+
+    int updateAdminStaffRoleRef(AdminStaffRoleRefEntity adminStaffRoleRefEntity);
 }

@@ -27,6 +27,17 @@
             sysdate(), #{creator,jdbcType=BIGINT})
   </insert>
 
+  <update id="updateAdminStaffRoleRef" parameterType="com.mingqian.domain.mybatis.entity.AdminStaffRoleRefEntity">
+    update ea_admin_staff_role_ref
+    <set >
+      <if test="roleId != null" >
+        ROLE_ID = #{roleId,jdbcType=VARCHAR},
+      </if>
+      UPDATE_TIME = sysdate()
+    </set>
+    where STAFF_ID = #{staffId,jdbcType=DECIMAL}
+  </update>
+
   <insert id="insert" parameterType="com.mingqian.domain.mybatis.entity.AdminStaffRoleRefEntity" >
     insert into ea_admin_staff_role_ref (ROLE_ID, STAFF_ID, CREATE_TIME, 
       UPDATE_TIME, CREATOR)

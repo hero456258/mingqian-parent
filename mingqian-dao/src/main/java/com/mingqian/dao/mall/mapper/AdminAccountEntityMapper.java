@@ -25,11 +25,14 @@ public interface AdminAccountEntityMapper {
 
     List<AdminAccountEntity> selectAdminAccountList(AdminAccountParamVo paramVo);
 
-    Long selectDepartmentId(@Param("userId") Long userId);
 
     int selectAdminAccountCount(AdminAccountParamVo paramVo);
 
     int insertAdminAccount(AdminAccountVo accountVo);
 
     AdminAccountEntity selectAdminAccountByUserNameAndPassword(@Param("userName") String userName, @Param("password") String password, @Param("status") String status);
+
+    AdminAccountEntity selectAdminAccountBy(@Param("id") Long id);
+
+    int updateAdminAccount(AdminAccountVo accountVo);
 }

@@ -95,7 +95,7 @@ public class AdminAccountServiceImpl implements AdminAccountService {
         accountVo.setLoginPwd(MD5Util.md5(accountVo.getLoginPwd()));
         int line = adminAccountEntityMapper.insertAdminAccount(accountVo);
         if (line >= 1) {
-            AdminAccountEntity adminAccountEntity = adminAccountEntityMapper.selectAdminAccountByUserNameAndPassword(accountVo.getLoginName(), accountVo.getLoginPwd(),accountVo.getStatus());
+            AdminAccountEntity adminAccountEntity = adminAccountEntityMapper.selectAdminAccountByUserNameAndPassword(accountVo.getLoginName(), accountVo.getLoginPwd(), accountVo.getStatus());
             AdminStaffEntity adminStaffEntity = new AdminStaffEntity();
             adminStaffEntity.setStaffId(adminAccountEntity.getUserId());
             adminStaffEntity.setParentId(accountVo.getDepartmentId());
@@ -111,6 +111,59 @@ public class AdminAccountServiceImpl implements AdminAccountService {
                 if (isSuccess) {
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 通过用户id获取用户信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public AdminAccountVo queryAdminAccountBy(Long id) {
+        AdminAccountEntity adminAccountEntity = adminAccountEntityMapper.selectAdminAccountBy(id);
+        AdminAccountVo accountVo = new AdminAccountVo();
+        accountVo.setUserId(adminAccountEntity.getUserId());
+        accountVo.setRealName(adminAccountEntity.getRealName());
+        accountVo.setLoginName(adminAccountEntity.getLoginName());
+        accountVo.setLoginPwd(adminAccountEntity.getLoginPwd());
+        accountVo.setStatus(adminAccountEntity.getStatus());
+        accountVo.setEmail(adminAccountEntity.getEmail());
+        Long departmentId = adminStaffService.queryDepartmentId(adminAccountEntity.getUserId());
+        accountVo.setDepartmentId(departmentId);
+        Long roleId = adminStaffRoleRefService.getRoleId(adminAccountEntity.getUserId());
+        accountVo.setRoleId(roleId);
+        return accountVo;
+    }
+
+    /**
+     * 修改用户信息
+     *
+     * @param accountVo
+     * @return
+     */
+    @Override
+    public boolean modifyAdminAccount(AdminAccountVo accountVo) {
+        accountVo.setLoginPwd(MD5Util.md5(accountVo.getLoginPwd()));
+        int line = adminAccountEntityMapper.updateAdminAccount(accountVo);
+        if (line >= 1) {
+            AdminStaffEntity adminStaffEntity = new AdminStaffEntity();
+            adminStaffEntity.setStaffId(accountVo.getUserId());
+            adminStaffEntity.setStaffName(accountVo.getRealName());
+            adminStaffEntity.setParentId(accountVo.getDepartmentId());
+            boolean result = adminStaffService.modifyAdminStaff(adminStaffEntity);
+            if (result) {
+                AdminStaffRoleRefEntity adminStaffRoleRefEntity = new AdminStaffRoleRefEntity();
+                adminStaffRoleRefEntity.setStaffId(accountVo.getUserId());
+                adminStaffRoleRefEntity.setRoleId(accountVo.getRoleId());
+                boolean isSuccess = adminStaffRoleRefService.modifyAdminStaffRoleRef(adminStaffRoleRefEntity);
+                if (isSuccess) {
+                    return true;
+                }
+
             }
         }
         return false;

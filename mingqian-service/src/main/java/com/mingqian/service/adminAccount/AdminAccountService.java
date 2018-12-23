@@ -30,4 +30,18 @@ public interface AdminAccountService {
      * @return
      */
     boolean addAdminAccount(AdminAccountVo accountVo);
+
+    /**
+     * 通过用户id获取用户信息
+     * @param id
+     * @return
+     */
+    AdminAccountVo queryAdminAccountBy(Long id);
+
+    /**
+     * 修改用户信息
+     * @param accountVo
+     * @return
+     */
+    boolean modifyAdminAccount(AdminAccountVo accountVo);
 }

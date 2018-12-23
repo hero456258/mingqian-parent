@@ -15,4 +15,11 @@ public interface AdminStaffRoleRefService {
     Long getRoleId(Long userId);
 
     boolean addAdminStaffRoleRef(AdminStaffRoleRefEntity adminStaffRoleRefEntity);
+
+    /**
+     * 修改用户角色对应关系表
+     * @param adminStaffRoleRefEntity
+     * @return
+     */
+    boolean modifyAdminStaffRoleRef(AdminStaffRoleRefEntity adminStaffRoleRefEntity);
 }

@@ -15,4 +15,11 @@ public interface AdminStaffService {
     Long queryDepartmentId(Long userId);
 
     boolean addAdminStaff(AdminStaffEntity adminStaffEntity);
+
+    /**
+     * 修改用户信息
+     * @param adminStaffEntity
+     * @return
+     */
+    boolean modifyAdminStaff(AdminStaffEntity adminStaffEntity);
 }

@@ -1,0 +1,116 @@
+<#include "/commons/page_layout.html"/>
+<@html title="员工管理"></@html>
+<@body>
+<div class="page-header">
+    <h1>编辑员工</h1>
+</div>
+
+
+<div class="step-pane active" data-step="1">
+
+    <form class="form-horizontal" id="validation-form" method="get" novalidate="novalidate">
+        <input type="hidden" id="userId" value="${accountVo.userId}"/>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="username">用户名:</label>
+            <div class="col-xs-12 col-sm-9">
+                <div class="clearfix">
+                    <input type="text" id="username" name="username" class="col-xs-12 col-sm-5" value="${accountVo.loginName}">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="name" >姓名:</label>
+            <div class="col-xs-12 col-sm-9">
+                <div class="clearfix">
+                    <input type="text" id="name" name="name" class="col-xs-12 col-sm-5" value="${accountVo.realName}">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="password" >密 码:</label>
+            <div class="col-xs-12 col-sm-9">
+                <div class="clearfix">
+                    <input type="text" id="password" name="password" class="col-xs-12 col-sm-5" value="${accountVo.loginPwd}">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">电子邮箱:</label>
+            <div class="col-xs-12 col-sm-9">
+                <div class="clearfix">
+                    <input type="text" id="email" name="email" class="col-xs-12 col-sm-5" value="${accountVo.email}">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="department">部 门:</label>
+            <div class="col-xs-12 col-sm-9">
+                <select id="department" name="department" class="select2 select2-hidden-accessible valid"
+                        data-placeholder="Click to Choose..." style="width: 200px;" tabindex="-1" aria-hidden="true"
+                        aria-required="true" aria-describedby="state-error" aria-invalid="false">
+                    <option value="0">请选择部门</option>
+
+                    <#list departmentList as item>
+                        <option value="${item.id}" <#if item.id = accountVo.departmentId>  selected="selected" </#if>>
+                        ${item.departmentName}
+                        </option>
+                    </#list>
+
+
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="role">角 色:</label>
+            <div class="col-xs-12 col-sm-9">
+                <select id="role" name="role" class="select2 select2-hidden-accessible valid"
+                        data-placeholder="Click to Choose..." style="width: 200px;" tabindex="-1" aria-hidden="true"
+                        aria-required="true" aria-describedby="state-error" aria-invalid="false">
+                    <option value="0">请选择角色</option>
+
+                    <#list roles as item>
+                        <option value="${item.roleId}" <#if item.roleId=accountVo.roleId >  selected="selected" </#if>>
+                            ${item.roleName}
+                        </option>
+                    </#list>
+
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="col-sm-3 control-label no-padding-right">用户状态:</p>
+            <input type="hidden" id="state" value="${accountVo.status}"/>
+            <div class="radio" id="status">
+                <label> <input name="status" type="radio" class="ace" value="1" checked="checked" id="a1"> <span
+                        class="lbl">启用</span> </label>
+                <label> <input name="status" type="radio" class="ace" value="0" id="a2"> <span class="lbl">禁用</span> </label>
+            </div>
+        </div>
+
+
+        <div class="col-md-offset-3 col-md-9">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-info" type="button" id="saveBtn"><i class="ace-icon fa fa-check bigger-110"></i>确定
+            </button>
+        </div>
+    </form>
+</div>
+</@body>
+<script type="text/javascript" src="/jquery-tmpl/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="/jquery-tmpl/jquery.tmplPlus.min.js"></script>
+<script src="/assets/js/wizard.min.js"></script>
+<link rel="stylesheet" href="/assets/css/dropzone.min.css">
+<script src="/assets/js/dropzone.min.js"></script>
+<script type="text/javascript" src="/dataTable/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/dataTable/js/dataTables.bootstrap.js"></script>
+<script src="/assets/js/bootbox.js"></script>
+<script src="/mingqian/js/adminAccount/editAdminAccount.js"></script>

@@ -28,4 +28,15 @@ public class AdminStaffRoleRefServiceImpl implements AdminStaffRoleRefService {
     public boolean addAdminStaffRoleRef(AdminStaffRoleRefEntity adminStaffRoleRefEntity) {
         return adminStaffRoleRefEntityMapper.insertAdminStaffRoleRef(adminStaffRoleRefEntity) > 0;
     }
+
+    /**
+     * 修改用户角色对应关系表
+     *
+     * @param adminStaffRoleRefEntity
+     * @return
+     */
+    @Override
+    public boolean modifyAdminStaffRoleRef(AdminStaffRoleRefEntity adminStaffRoleRefEntity) {
+        return adminStaffRoleRefEntityMapper.updateAdminStaffRoleRef(adminStaffRoleRefEntity) > 0;
+    }
 }
