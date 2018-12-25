@@ -5,6 +5,50 @@ $(document).ready(function () {
     $("#addAdminAccount").on("click",function () {
         window.location.href = web.basePath + "/adminAccount/toAddAdminAccountPage"
     })
+
+    //密码设置模态框弹起
+    $("body").on("click","a[name='resetPwd']",function () {
+        var userId = $(this).attr("attr_id");
+        console.log(userId)
+        var realName = $(this).attr("attr_name");
+        $("#boxRealName").html(realName);
+        $(".modalSaveBut").attr("attr_id",userId);
+    })
+
+    //修改密码
+    $(".modalSaveBut").on("click",function () {
+        var userId = $(this).attr("attr_id");
+        var password = $.trim($("#newPwd").val());
+        if(password == null || password == ""){
+            $("#newPwd").focus();
+            alert("新密码不能为空！");
+            return false;
+        }
+        var newPwd = $.trim($("#reNewPwd").val());
+        if(newPwd == null || newPwd == ""){
+            $("#reNewPwd").focus();
+            alert("确认新密码不能为空！");
+            return false;
+        }
+        if(password != newPwd){
+            alert("两次密码不一致，请重试！");
+            return false;
+        }
+
+        $.ajax({
+            url : web.basePath + "/adminAccount/resetPwd",
+            data : {"userId":userId,"password":password},
+            type : "POST",
+            success : function (data) {
+                if(data.resCode != 0){
+                    alert(data.msg);
+                    return false;
+                }
+                $(".close").click();
+            }
+        });
+
+    })
 });
 
 function loadTableData(isV, obj, showWarning) {
@@ -84,7 +128,7 @@ function loadTableData(isV, obj, showWarning) {
                 "data": "userId", "sClass": "hiddenCol", "title": "操作", "width": "10%", "bVisible": true,
                 "render": function (data, type, full, meta) {
                     return '<a href="javascript:editAdminAccount(' + data + ')">编辑</a> | <a href="javascript:void(0)" name="resetPwd" attr_id="' + data + '" ' +
-                        'attr_name="' + full.realName + '" data-toggle="modal" data-target="#setPwdModal">设置密码</a> | <a href="javascript:deleteUser(' + data + ')">删除</a>';
+                        'attr_name="' + full.realName + '" data-toggle="modal" data-target="#setPwdModal">设置密码</a> | <a href="javascript:deleteAdminAccount(' + data + ')">删除</a>';
                 }
             }
         ]
@@ -92,4 +136,30 @@ function loadTableData(isV, obj, showWarning) {
 }
     function editAdminAccount(id) {
         window.location.href = web.basePath +  "/adminAccount/toEditAdminAccountPage?id="+id;
+    }
+
+    function deleteAdminAccount(id) {
+
+        bootbox.confirm("将进行删除操作，请确认?", function(result) {
+            if(result) {
+                $.ajax({
+                    url : web.basePath + "/adminAccount/deleteAdminAccount",
+                    data : {
+                        "userId":id
+                    },
+                    type : "POST",
+                    success : function (data) {
+                        if(data.resCode != 0){
+                            alert(data.msg);
+                            return false;
+                        }
+                        alert("提交完成");
+                        window.location.reload();
+                    }
+                });
+
+            }else{
+
+            }
+        });
     }

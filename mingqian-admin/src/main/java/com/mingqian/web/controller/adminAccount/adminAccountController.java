@@ -8,11 +8,9 @@ import com.mingqian.domain.vo.adminAccount.AdminAccountVo;
 import com.mingqian.service.adminAccount.AdminAccountService;
 import com.mingqian.service.adminRole.AdminRoleService;
 import com.mingqian.service.department.DepartmentService;
-import com.mingqian.web.common.AdminErrorCode;
-import com.mingqian.web.common.ApiResult;
-import com.mingqian.web.common.ApiResultUtil;
-import com.mingqian.web.common.ApiResulter;
+import com.mingqian.web.common.*;
 import com.mingqian.web.exception.ErrorInputException;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -94,6 +92,26 @@ public class adminAccountController {
     @ResponseBody
     public ApiResult updateAdminAccount(@RequestBody AdminAccountVo accountVo){
         boolean result = adminAccountService.modifyAdminAccount(accountVo);
+        return result ? ApiResulter.ok() : ApiResulter.error(AdminErrorCode.SYS_ERROR);
+    }
+
+    @RequestMapping("resetPwd")
+    @ResponseBody
+    public ApiResult resetPwd(String password, Long userId){
+        if(StringUtils.isEmpty(password) || userId == null || userId <= 0){
+            return ApiResulter.error(AdminErrorCode.INPUT_ERROR);
+        }
+        boolean result = adminAccountService.modifyAdminAccountPasswordBy(userId, MD5Util.md5(password));
+        return ApiResulter.boolBody(result);
+    }
+
+    @RequestMapping("/deleteAdminAccount")
+    @ResponseBody
+    public ApiResult deleteAdminAccount(Long userId){
+        if(userId == null){
+            return ApiResulter.error(AdminErrorCode.INPUT_ERROR);
+        }
+        boolean result = adminAccountService.deleteAdminAccountBy(userId);
         return result ? ApiResulter.ok() : ApiResulter.error(AdminErrorCode.SYS_ERROR);
     }
 

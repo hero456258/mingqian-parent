@@ -35,4 +35,8 @@ public interface AdminAccountEntityMapper {
     AdminAccountEntity selectAdminAccountBy(@Param("id") Long id);
 
     int updateAdminAccount(AdminAccountVo accountVo);
+
+    int updateAdminAccountPassword(@Param("userId") Long userId, @Param("password") String password);
+
+    int deleteAdminAccountBy(@Param("userId") Long userId);
 }

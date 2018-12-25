@@ -20,7 +20,7 @@ import java.text.MessageFormat;
 @RequestMapping("/adminIndex")
 @Controller
 @LoginVerify
-public class AdminIndexController  {
+public class AdminIndexController {
 
     @Autowired
     private PropertiesConfig propertiesConfig;

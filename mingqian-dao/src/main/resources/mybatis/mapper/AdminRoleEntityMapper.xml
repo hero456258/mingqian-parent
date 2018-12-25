@@ -5,13 +5,47 @@
     <id column="ROLE_ID" property="roleId" jdbcType="BIGINT" />
     <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
     <result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
-    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="VARCHAR" />
     <result column="STATUS" property="status" jdbcType="CHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     ROLE_ID, ROLE_NAME, ROLE_DESC, CREATE_TIME, UPDATE_TIME, STATUS
   </sql>
+
+  <!--分页角色查询-->
+  <select id="selectAdminRoleList" resultMap="BaseResultMap" parameterType="com.mingqian.domain.vo.adminRole.AdminRoleParamVo">
+    select
+          <include refid="Base_Column_List" />
+    from
+          ea_admin_role
+    where
+          1=1
+    and
+          STATUS = '1'
+        <if test="roleName != null and roleName!=''">
+           and ROLE_NAME like CONCAT(CONCAT('%',#{roleName}),'%')
+        </if>
+    order by
+         CREATE_TIME desc
+    limit
+          #{rowStart}, #{rowEnd}
+  </select>
+
+  <!--分页数量统计-->
+  <select id="selectAdminRoleListCount" resultType="java.lang.Integer" parameterType="com.mingqian.domain.vo.adminRole.AdminRoleParamVo">
+    select
+          count(*)
+    from
+          ea_admin_role
+    where
+          1=1
+    and
+           STATUS = '1'
+        <if test="roleName != null and roleName!=''">
+          and ROLE_NAME like CONCAT(CONCAT('%',#{roleName}),'%')
+        </if>
+  </select>
 
   <!--通过roleId查询出roleName-->
   <select id="selectRoleNameBy" resultType="java.lang.String">

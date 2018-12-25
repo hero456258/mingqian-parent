@@ -40,6 +40,20 @@ public class DepartmentController {
         return ApiResultUtil.ok(pages);
     }
 
+    @RequestMapping("/toAdd")
+    public String toAddPage(){
+        return "/department/addDepartment";
+    }
+
+    @RequestMapping("addAdminDepartment")
+    @ResponseBody
+    public ApiResult addDepartment(AdminDepartmentEntity adminDepartmentEntity){
+        adminDepartmentEntity.setCaeator(0L);
+        adminDepartmentEntity.setDeleted("0");
+        boolean result = departmentService.addAdminDepartment(adminDepartmentEntity);
+        return result ? ApiResulter.ok() : ApiResulter.error(AdminErrorCode.SYS_ERROR);
+    }
+
     @RequestMapping("/toEditDepartmentPage/{id}")
     public String toEditDepartmentPage(@PathVariable("id") Long id, Model model) {
         AdminDepartmentEntity adminDepartmentEntity = departmentService.queryDepartmentBy(id);

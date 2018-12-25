@@ -1,0 +1,83 @@
+<#include "/commons/page_layout.html"/>
+<@html title="系统角色"></@html>
+<link rel="stylesheet" href="/mingqian/css/tableStyle.css">
+<@body>
+<div class="page-header">
+    <h1>添加角色</h1>
+</div>
+<div class="row">
+    <form role="form" class="form-horizontal categoryForm">
+        <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right"><font color="red">*</font> 角色名称</label>
+            <div class="col-sm-9">
+                <input type="text" class="col-xs-10 col-sm-5" placeholder="角色名称" value="" name="roleName">
+            </div>
+        </div>
+        <div class="form-group ">
+            <label class="col-sm-3 control-label no-padding-right">角色描述</label>
+            <div class="col-sm-9">
+                <input type="text" class="col-xs-10 col-sm-5" placeholder="角色描述" value="" name="roleDesc">
+            </div>
+        </div>
+        <div class="hr hr-24"></div>
+    </form>
+</div>
+
+<div class="row">
+
+    <div class="col-xs-12 col-sm-12 widget-container-col ui-sortable">
+        <div id="widget-box-2" class="widget-box widget-color-blue ui-sortable-handle">
+
+            <div style="padding-left: 0px" class="widget-header">
+                <h5 class="widget-title bigger lighter">
+                    <div class="checkbox">
+                        <label class="block">
+                            <input type="checkbox" name="menuAllCheck" class="ace input-lg"> <span
+                                class="lbl bigger-120"> 全选</span>
+                        </label>
+                    </div>
+                </h5>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main no-padding">
+                    <div class="widget-main">
+                        <#list menus as menu>
+                            <div class="menuDiv row">
+                                <div style="margin-bottom: 5px" class="alert alert-info">
+                                    <div class="checkbox">
+                                        <label class="block">
+                                            <input type="checkbox" name="parentMenu" class="ace input-lg">
+                                            <span class="lbl bigger-120"> ${menu.menuName}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <#list menu.childs as child>
+                                    <div class="childMenuDiv col-md-3">
+                                        <div class="checkbox">
+                                            <label class="block">
+                                                <input type="checkbox" class="ace input-lg" name="childMenu"
+                                                       value="${child.menuId}">
+                                                <span class="lbl bigger-120">${child.menuName}</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </#list>
+                            </div>
+                        </#list>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-actions">
+        <div class="text-center">
+            <button class="btn btn-info" id="addRole" type="button"><i class="ace-icon fa fa-check bigger-110"></i>保存</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/mingqian/js/adminRole/addAdminRole.js"></script>
+</@body>

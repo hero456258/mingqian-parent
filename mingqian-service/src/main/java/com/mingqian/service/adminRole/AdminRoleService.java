@@ -1,6 +1,8 @@
 package com.mingqian.service.adminRole;
 
+import com.mingqian.domain.base.PageBean;
 import com.mingqian.domain.mybatis.entity.AdminRoleEntity;
+import com.mingqian.domain.vo.adminRole.AdminRoleParamVo;
 
 import java.util.List;
 
@@ -20,4 +22,11 @@ public interface AdminRoleService {
      * @return
      */
     List<AdminRoleEntity> queryAllRoles();
+
+    /**
+     * 角色列表分页
+     * @param adminRoleParamVo
+     * @return
+     */
+    PageBean<AdminRoleEntity> queryAdminRoleList(AdminRoleParamVo adminRoleParamVo);
 }

@@ -52,4 +52,11 @@ public interface DepartmentService {
      * @return
      */
     List<AdminDepartmentEntity> queryAllDepartments();
+
+    /**
+     * 添加部门
+     * @param adminDepartmentEntity
+     * @return
+     */
+    boolean addAdminDepartment(AdminDepartmentEntity adminDepartmentEntity);
 }

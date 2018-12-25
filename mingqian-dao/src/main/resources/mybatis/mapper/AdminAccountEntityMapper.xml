@@ -129,6 +129,16 @@
     where USER_ID = #{userId,jdbcType=BIGINT}
   </update>
 
+  <!--修改用户密码-->
+  <update id="updateAdminAccountPassword">
+    update ea_admin_account set LOGIN_PWD = #{password} where  USER_ID = #{userId}
+  </update>
+
+  <!--通过用户id删除用户-->
+  <update id="deleteAdminAccountBy">
+    update ea_admin_account set  STATUS = '0' where USER_ID = #{userId}
+  </update>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />

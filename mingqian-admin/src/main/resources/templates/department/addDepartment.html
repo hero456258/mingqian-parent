@@ -1,0 +1,44 @@
+<#include "/commons/page_layout.html"/>
+<@html title="部门管理"></@html>
+<@body>
+<div class="page-header">
+    <h1>添加部门</h1>
+</div>
+
+
+
+<div class="step-pane active" data-step="1">
+
+    <form class="form-horizontal" id="validation-form" method="get" novalidate="novalidate">
+
+
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="name">部门名称:</label>
+            <div class="col-xs-12 col-sm-9">
+                <div class="clearfix">
+                    <input type="text" id="name" name="name" class="col-xs-12 col-sm-5">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="descript">部门描述:</label>
+            <div class="col-xs-12 col-sm-9">
+                <div class="clearfix">
+                    <input type="text" id="descript" name="descript" class="col-xs-12 col-sm-5">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-offset-3 col-md-9">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-info" type="button" id="saveBtn"> <i class="ace-icon fa fa-check bigger-110"></i>确定</button>
+        </div>
+
+
+    </form>
+
+
+</@body>
+<script type="text/javascript" src="/mingqian/js/department/addDepartment.js"></script>

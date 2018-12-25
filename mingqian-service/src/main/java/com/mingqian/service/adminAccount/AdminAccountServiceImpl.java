@@ -146,6 +146,7 @@ public class AdminAccountServiceImpl implements AdminAccountService {
      * @return
      */
     @Override
+    @Transactional
     public boolean modifyAdminAccount(AdminAccountVo accountVo) {
         accountVo.setLoginPwd(MD5Util.md5(accountVo.getLoginPwd()));
         int line = adminAccountEntityMapper.updateAdminAccount(accountVo);
@@ -167,6 +168,29 @@ public class AdminAccountServiceImpl implements AdminAccountService {
             }
         }
         return false;
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param userId
+     * @param s
+     * @return
+     */
+    @Override
+    public boolean modifyAdminAccountPasswordBy(Long userId, String password) {
+        return adminAccountEntityMapper.updateAdminAccountPassword(userId, password) > 0;
+    }
+
+    /**
+     * 通过用户id删除用户
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public boolean deleteAdminAccountBy(Long userId) {
+        return adminAccountEntityMapper.deleteAdminAccountBy(userId) > 0;
     }
 
 }

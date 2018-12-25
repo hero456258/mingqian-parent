@@ -33,4 +33,6 @@ public interface AdminDepartmentEntityMapper {
     String selectDepartmentNameBy(@Param("departmentId") Long departmentId);
 
     List<AdminDepartmentEntity> selectAllDepartments();
+
+    int insertAdminDepartment(AdminDepartmentEntity adminDepartmentEntity);
 }

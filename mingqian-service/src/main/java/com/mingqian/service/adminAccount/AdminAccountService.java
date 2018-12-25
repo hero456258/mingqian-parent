@@ -44,4 +44,19 @@ public interface AdminAccountService {
      * @return
      */
     boolean modifyAdminAccount(AdminAccountVo accountVo);
+
+    /**
+     * 修改密码
+     * @param userId
+     * @param s
+     * @return
+     */
+    boolean modifyAdminAccountPasswordBy(Long userId, String password);
+
+    /**
+     * 通过用户id删除用户
+     * @param userId
+     * @return
+     */
+    boolean deleteAdminAccountBy(Long userId);
 }

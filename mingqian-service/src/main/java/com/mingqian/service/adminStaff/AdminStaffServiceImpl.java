@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
  * Created by wanggang on 2018/12/23.
  */
 @Service("adminStaffService")
-public class AdminStaffServiceImpl implements AdminStaffService{
+public class AdminStaffServiceImpl implements AdminStaffService {
     @Autowired
     private AdminStaffEntityMapper adminStaffEntityMapper;
 

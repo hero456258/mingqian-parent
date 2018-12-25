@@ -25,6 +25,8 @@
          <if test="departmentName != null and departmentName!=''">
            and DEPARTMENT_NAME like CONCAT(CONCAT('%',#{departmentName}),'%')
          </if>
+    order by
+              CREATE_TIME desc
     limit #{rowStart}, #{rowEnd}
   </select>
 
@@ -50,6 +52,16 @@
     where
           ID=#{id}
   </select>
+
+  <!--添加部门-->
+  <insert id="insertAdminDepartment" parameterType="com.mingqian.domain.mybatis.entity.AdminDepartmentEntity">
+    insert into ea_admin_department ( DEPARTMENT_NAME, DEPARTMENT_DESC,
+      CREATE_TIME, UPDATE_TIME, DELETED,
+      CAEATOR)
+    values ( #{departmentName,jdbcType=VARCHAR}, #{departmentDesc,jdbcType=VARCHAR},
+      sysdate(), sysdate(), #{deleted,jdbcType=CHAR},
+      #{caeator,jdbcType=BIGINT})
+  </insert>
 
   <!--修改部门信息-->
   <update id="updateDepartment" >

@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @RequestMapping("/login")
 @IgnoreLoginVerify
-public class LoginController  extends BaseController{
+public class LoginController extends BaseController {
     @Resource
     private AdminAccountService adminAccountService;
 

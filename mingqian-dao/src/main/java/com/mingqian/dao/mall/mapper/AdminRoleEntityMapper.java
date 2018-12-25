@@ -1,6 +1,7 @@
 package com.mingqian.dao.mall.mapper;
 
 import com.mingqian.domain.mybatis.entity.AdminRoleEntity;
+import com.mingqian.domain.vo.adminRole.AdminRoleParamVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -21,4 +22,8 @@ public interface AdminRoleEntityMapper {
     String selectRoleNameBy(@Param("roleId") Long roleId);
 
     List<AdminRoleEntity> selectAllRoles();
+
+    List<AdminRoleEntity> selectAdminRoleList(AdminRoleParamVo adminRoleParamVo);
+
+    Integer selectAdminRoleListCount(AdminRoleParamVo adminRoleParamVo);
 }

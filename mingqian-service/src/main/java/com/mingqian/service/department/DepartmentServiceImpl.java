@@ -14,7 +14,7 @@ import java.util.List;
  * Created by wanggang on 2018/12/19.
  */
 @Service("departmentService")
-public class DepartmentServiceImpl implements DepartmentService{
+public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     private AdminDepartmentEntityMapper adminDepartmentEntityMapper;
 
@@ -60,6 +60,17 @@ public class DepartmentServiceImpl implements DepartmentService{
     @Override
     public List<AdminDepartmentEntity> queryAllDepartments() {
         return adminDepartmentEntityMapper.selectAllDepartments();
+    }
+
+    /**
+     * 添加部门
+     *
+     * @param adminDepartmentEntity
+     * @return
+     */
+    @Override
+    public boolean addAdminDepartment(AdminDepartmentEntity adminDepartmentEntity) {
+        return adminDepartmentEntityMapper.insertAdminDepartment(adminDepartmentEntity) > 0;
     }
 
 }
