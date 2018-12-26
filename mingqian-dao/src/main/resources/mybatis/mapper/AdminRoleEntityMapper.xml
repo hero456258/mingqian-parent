@@ -62,6 +62,61 @@
           STATUS = '1'
   </select>
 
+  <!--添加角色-->
+  <insert id="insertAdminRole" parameterType="com.mingqian.domain.vo.adminRole.AddAdminRoleVo">
+     insert into ea_admin_role ( ROLE_NAME, ROLE_DESC,
+      CREATE_TIME, UPDATE_TIME, STATUS
+      )
+    values ( #{roleName,jdbcType=VARCHAR}, #{roleDesc,jdbcType=VARCHAR},
+      now(), now(), '1'
+      )
+  </insert>
+
+  <!--通过角色名称查询角色信息-->
+  <select id="selectAdminRoleByRoleName" resultMap="BaseResultMap">
+    select
+          <include refid="Base_Column_List" />
+    from
+          ea_admin_role
+    where
+          STATUS = '1'
+    and
+          ROLE_NAME = #{roleName}
+  </select>
+
+  <!--通过角色id查询角色对象-->
+  <select id="selectAdminRoleMessageBy" resultType="com.mingqian.domain.vo.adminRole.AdminRoleDetailVo">
+    select
+         ROLE_ID as roleId,
+         ROLE_NAME as roleName,
+         ROLE_DESC as roleDesc
+    from
+         ea_admin_role
+    where
+         STATUS = '1'
+    and
+         ROLE_ID = #{roleId}
+  </select>
+
+  <!--修改角色-->
+  <update id="updateAdminRole" parameterType="com.mingqian.domain.vo.adminRole.AddAdminRoleVo">
+    update ea_admin_role
+    <set >
+      <if test="roleName != null" >
+        ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDesc != null" >
+        ROLE_DESC = #{roleDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ROLE_ID = #{roleId,jdbcType=BIGINT}
+  </update>
+
+  <!--删除角色-->
+  <update id="deleteAdminRoleBy">
+    update ea_admin_role set STATUS = '0' where ROLE_ID = #{roleId}
+  </update>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />

@@ -7,7 +7,7 @@
 <!--C:\Users\wanggang\.m2\repository\mysql\mysql-connector-java\5.1.34\mysql-connector-java-5.1.34.jar-->
 <generatorConfiguration>
     <classPathEntry
-            location="F:\repository\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar"/>
+            location="C:\Users\wanggang\.m2\repository\mysql\mysql-connector-java\5.1.34\mysql-connector-java-5.1.34.jar"/>
     <context id="DB2Tables" targetRuntime="MyBatis3"
              defaultModelType="flat">
         <plugin type="org.mybatis.generator.plugin.CommentPlugin" >
@@ -50,8 +50,8 @@
         </javaClientGenerator>
 
         <!--对应数据库表 mysql可以加入主键自增 字段命名 忽略某字段等 -->
-        <table tableName="ea_admin_role"
-               domainObjectName="AdminRoleEntity" enableCountByExample="false"
+        <table tableName="ea_admin_role_permission_ref"
+               domainObjectName="AdminRolePermissionRefEntity" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false" selectByExampleQueryId="fasle"/>
                <!--<table tableName="EC_MALL_ORDER"-->

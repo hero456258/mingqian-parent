@@ -29,6 +29,9 @@ public class MenuDetailVo {
      */
     private String showMenu;
 
+    /**
+     * 选中状态:true选中;false未选中
+     */
     private Boolean checked;
 
     public Long getMenuId() {

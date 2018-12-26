@@ -57,10 +57,34 @@ function loadTableData(isV, obj, showWarning) {
             {"data" : "createTime" ,"title":"创建时间","width":"25%"},
             {"data" : "roleId","sClass":"hiddenCol"  ,"title":"操作","width":"20%","bVisible": true,
                 "render": function ( data, type, full, meta ) {
-                    return '<a href="'+web.basePath+'/adminRole/toViewRole?roleId='+data+'">查看权限</a>&nbsp;'+
-                        '<a href="'+web.basePath+'/adminRole/toEditRole?roleId='+data+'">编辑</a>&nbsp;'+
+                    return '<a href="javascript:showRolePermission(' + data + ')">查看权限</a>&nbsp;'+
+                        '<a href="'+web.basePath+'/adminRole/toEditAdminRolePermissionPage?roleId='+data+'">编辑</a>&nbsp;'+
                         '<a href="javascript:void(0);" onclick="deleteRole('+data+')">删除</a>&nbsp;';
                 }}
         ]
+    });
+}
+
+function showRolePermission(roleId){
+    window.location.href = web.basePath +"/adminRole/showRolePermission?roleId=" + roleId;
+}
+
+function deleteRole(roleId) {
+    bootbox.confirm("确定删除所选择的角色吗?", function(result) {
+        if(!result) {
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url:  web.basePath + "/adminRole/deleteAdminRole",
+            data: {"roleId" : roleId},
+            success: function(data){
+                if(data.resCode != 0){
+                    alert(data.msg);
+                    return;
+                }
+                $('#adminRoleListTab').DataTable().draw( false );
+            }
+        });
     });
 }

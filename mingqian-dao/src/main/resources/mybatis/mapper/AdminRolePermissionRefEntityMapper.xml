@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingqian.dao.mall.mapper.AdminRolePermissionRefEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.mingqian.domain.mybatis.entity.AdminRolePermissionRefEntity" >
+    <result column="ROLE_ID" property="roleId" jdbcType="BIGINT" />
+    <result column="MENU_ID" property="menuId" jdbcType="BIGINT" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="DELETED" property="deleted" jdbcType="CHAR" />
+    <result column="CAEATOR" property="caeator" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <!--删除已经添加的权限关系-->
+  <update id="deleteAdminRolePermissionRefBy">
+    update
+          ea_admin_role_permission_ref
+    set
+          DELETED = '1'
+    where
+          ROLE_ID = #{roleId}
+  </update>
+
+  <!--添加权限关系-->
+  <insert id="insertAdminRolePermissionRef">
+     insert into ea_admin_role_permission_ref (ROLE_ID, MENU_ID, CREATE_TIME,
+      UPDATE_TIME, DELETED, CAEATOR
+      )
+    values
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{roleId}, #{item}, now(),now(), '0', 0)
+    </foreach>
+  </insert>
+
+  <!--查看role对应的permission-->
+  <select id="selectAdminRolePermissionBy" resultType="com.mingqian.domain.vo.menu.MenuDetailVo">
+    select
+          ref.MENU_ID as menuId,
+          conf.MENU_NAME as menuName,
+          conf.REQ_URL as reqUrl,
+          conf.PARENT_MENU_ID as parentMenuId
+    from
+          ea_admin_role_permission_ref ref
+    inner join
+          ea_admin_menu_conf conf
+    on
+          ref.MENU_ID = conf.MENU_ID
+    where
+          ref.ROLE_ID = #{roleId}
+    and
+          ref.DELETED = '0'
+    and
+          conf.DELETED = '0'
+  </select>
+
+  <insert id="insert" parameterType="com.mingqian.domain.mybatis.entity.AdminRolePermissionRefEntity" >
+    insert into ea_admin_role_permission_ref (ROLE_ID, MENU_ID, CREATE_TIME, 
+      UPDATE_TIME, DELETED, CAEATOR
+      )
+    values (#{roleId,jdbcType=BIGINT}, #{menuId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=CHAR}, #{caeator,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mingqian.domain.mybatis.entity.AdminRolePermissionRefEntity" >
+    insert into ea_admin_role_permission_ref
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="menuId != null" >
+        MENU_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="deleted != null" >
+        DELETED,
+      </if>
+      <if test="caeator != null" >
+        CAEATOR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="menuId != null" >
+        #{menuId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=CHAR},
+      </if>
+      <if test="caeator != null" >
+        #{caeator,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -36,7 +36,7 @@ $(document).ready(function () {
             alert("请输入角色描述！");
             return false;
         }
-
+        var roleId = $("#saveBtn").attr("attr_roleId");
         var menuIds = [];
          $("input[name='childMenu']:checked").each(function () {
              menuIds.push($(this).val());
@@ -45,8 +45,9 @@ $(document).ready(function () {
          param.roleName = roleName;
          param.roleDesc = roleDesc;
          param.menuIds = menuIds;
+         param.roleId =roleId;
         $.ajax({
-            url: web.basePath + '/adminRole/addAdminRole',
+            url: web.basePath + '/adminRole/editAdminRole',
             data: JSON.stringify(param),
             type:'post',
             contentType : "application/json",
@@ -55,8 +56,8 @@ $(document).ready(function () {
                     alert(data.msg);
                     return false;
                 }
-                alert("添加成功！");
-                history.back(-1);
+                alert("编辑成功！");
+                window.location.href = web.basePath + "/adminRole/toList";
             }
 
         });

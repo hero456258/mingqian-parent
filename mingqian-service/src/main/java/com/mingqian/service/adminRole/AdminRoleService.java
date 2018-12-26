@@ -2,6 +2,8 @@ package com.mingqian.service.adminRole;
 
 import com.mingqian.domain.base.PageBean;
 import com.mingqian.domain.mybatis.entity.AdminRoleEntity;
+import com.mingqian.domain.vo.adminRole.AddAdminRoleVo;
+import com.mingqian.domain.vo.adminRole.AdminRoleDetailVo;
 import com.mingqian.domain.vo.adminRole.AdminRoleParamVo;
 
 import java.util.List;
@@ -29,4 +31,33 @@ public interface AdminRoleService {
      * @return
      */
     PageBean<AdminRoleEntity> queryAdminRoleList(AdminRoleParamVo adminRoleParamVo);
+
+    /**
+     * 添加角色
+     * @param adminRoleVo
+     * @return
+     */
+    boolean addAdminRole(AddAdminRoleVo adminRoleVo);
+
+
+    /**
+     * 查询角色信息
+     * @param roleId
+     * @return
+     */
+    AdminRoleDetailVo queryAdminRoleMessageBy(Long roleId);
+
+    /**
+     * 编辑角色信息以及权限
+     * @param adminRoleVo
+     * @return
+     */
+    boolean editAdminRole(AddAdminRoleVo adminRoleVo);
+
+    /**
+     * 删除角色
+     * @param roleId
+     * @return
+     */
+    boolean deleteAdminRoleBy(Long roleId);
 }
