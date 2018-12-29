@@ -56,4 +56,37 @@ public class AdminMenuConfServiceImpl implements AdminMenuConfService {
         }
         return parentMenus;
     }
+
+    /**
+     * 添加子菜单
+     *
+     * @param menuDetailVo
+     * @return
+     */
+    @Override
+    public boolean addAdminMenuConf(MenuDetailVo menuDetailVo) {
+        return adminMenuConfEntityMapper.insertAdminMenuConf(menuDetailVo) > 0;
+    }
+
+    /**
+     * 编辑子菜单
+     *
+     * @param menuDetailVo
+     * @return
+     */
+    @Override
+    public boolean editAdminMenuConf(MenuDetailVo menuDetailVo) {
+        return adminMenuConfEntityMapper.updateAdminMenuConf(menuDetailVo) > 0;
+    }
+
+    /**
+     * 删除菜单
+     *
+     * @param menuId
+     * @return
+     */
+    @Override
+    public boolean deleteAdminMenuConf(Long menuId) {
+        return adminMenuConfEntityMapper.deleteAdminMenuConf(menuId) > 0;
+    }
 }

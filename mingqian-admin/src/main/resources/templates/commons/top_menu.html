@@ -1,109 +1,120 @@
-<div class="sidebar h-sidebar navbar-collapse collapse ace-save-state" id="sidebar2" data-sidebar="true"
+<div class="sidebar h-sidebar navbar-collapse collapse ace-save-state" id="sidebar2asd" data-sidebar="true"
      data-sidebar-scroll="true" data-sidebar-hover="true">
-    <ul class="nav nav-list" style="top: 0px;">
-        <li class="hover">
-            <a href="index.html">
-                <i class="menu-icon fa fa-tachometer"></i>
-                <span class="menu-text"> 平台设置 </span>
-            </a>
-
-        </li>
-
-        <li class="hover">
-            <a href="index.html">
-                <i class="menu-icon fa fa-tachometer"></i>
-                <span class="menu-text"> 平台设置 </span>
-            </a>
-
-        </li>
-        <li class="hover">
-            <a href="index.html">
-                <i class="menu-icon fa fa-tachometer"></i>
-                <span class="menu-text"> 平台设置 </span>
-            </a>
-
-        </li>
-        <li class="hover">
-            <a href="index.html">
-                <i class="menu-icon fa fa-tachometer"></i>
-                <span class="menu-text"> 平台设置 </span>
-            </a>
-
-        </li>
-        <li class="hover">
-            <a href="index.html">
-                <i class="menu-icon fa fa-tachometer"></i>
-                <span class="menu-text"> 平台设置 </span>
-            </a>
-
-        </li>
-
-            </ul><div class="scroll-track scroll-detached no-track scroll-thin scroll-margin scroll-visible" style="display: none; top: 68px; left: 183px;"><div class="scroll-bar" style="top: 0px;"></div></div>
-        </li>
+    <ul class="topMenu nav nav-list" style="top: 0px;">
     </ul>
-<!-- /.nav-list -->
-</div>
-<#noparse>
-    <script id="leftMenuTmpl" type="text/x-jquery-tmpl">
-    <li class="open"><a class="dropdown-toggle" href="#"> <i class="menu-icon fa fa-desktop"></i> <span
-            class="menu-text"> {{= parentMenu}} </span> <b class="arrow fa fa-angle-down"></b> </a> <b
-            class="arrow"></b>
-        <ul class="submenu nav-show">
-        {{each childMenu}}
-            <li {{if checked == true }}class="active"{{/if}}>
-                <a href="${link}"> <i class="menu-icon fa fa-caret-right"></i>${name}</a>
-                <b class="arrow"></b>
-            </li>
-        {{/each}}
-        </ul>
-    </li>
-</script>
-</#noparse>
-<script type="text/javascript">
-    $(function () {
-        //顶部菜单自动选中
-        menuAutoCheck();
 
+    <!-- /.nav-list -->
+</div>
+<script id="accountListTmpl" type="text/x-jquery-tmpl">
+  {{each(i,item) data.result}}
+                 <li class="hover hover_a">
+            <a class="" href="#" name = attr_menu_id  attr_menu_id ={{= menuId}}><i class="menu-icon fa {{= fontaweCss}}"></i><span class="menu-text">  {{= menuName}}</span></a>
+        </li>
+        {{/each}}
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        var allMenus = [];
+        $.ajax({
+            url: web.basePath + '/user/getPermission',
+            type: 'post',
+            asyc:false,
+            dataType: 'json',
+            success: function (data) {
+                if (data.resCode != 0) {
+                    alert(data.msg);
+                    return false;
+                }
+                allMenus = []
+                allMenus.push(data);
+                renderData(data);
+                menuAutoCheck();
+            }
+
+        });
         //顶部菜单点击事件
-        $(".topMenu li").click(function () {
+        $(document).on('click','.topMenu li ',function(){
             $(this).siblings().removeClass("active");
             $(this).addClass("active");
             //自动加载第一个菜单
-            var defLink = $("ul.topMenu li.active").find(".childTarget p").eq(0).attr("attr_l");
-            window.location.href = defLink;
-//            showLeftMenu();
+            $(".nav li").addClass("open")
+            $(".submenu").css('display','block');
+//          $(".submenu li a i").removeClass();
+
+
+        });
+        //子菜单点击事件
+        $(document).on('click','a[name="child_attr_name"]',function(){
+
+            var url = $(this).attr("attr_url");
+            var parentId = $(this).attr("parentId");
+
+            window.location.href =web.basePath+url+"?tetx="+parentId;
+
+        })
+        $(document).on('click','.topMenu li a',function(){
+
+            var menuId = $(this).attr("attr_menu_id");
+            var parentMenuText = $(this).text();
+            var childMenus= [];
+            $("#childMenus").text(parentMenuText);
+            $.each(allMenus,function (i,n) {
+                $.each(n.result,function (i,n) {
+                    if(n.menuId==menuId){
+                        childMenus.push(n.childs)
+                        return;
+                    }
+                })
+            })
+            var html = "";
+            $.each(childMenus,function (i,n) {
+                $.each(n,function (i,n) {
+                    console.log(n)
+                    html = html + '<li class="" name="li"> '+'<a parentId="'+n.parentMenuId+'" href="#" attr_url="'+n.reqUrl+'" name="child_attr_name">'+'<i class="menu-icon fa fa-caret-right" >'+
+                        '</i>'+n.menuName+'</a>'+'<b class="arrow">'+'</b>'+'</li>';
+                })
+            });
+            $(".submenu").html(html)
+
+            var  webUrl =$("li[name='li'] a:first").attr('attr_url');
+//            window.location.href =web.basePath+webUrl;
+        })
+
+    });
+    function renderData(data) {
+        $("#accountListTmpl").tmpl({"data": data}).appendTo($(".topMenu"));
+    }
+
+    //菜单自动选择
+    function menuAutoCheck(){
+        console.log('bbbbbbbbbb')
+        var webUrl = document.URL;
+        var num=webUrl.lastIndexOf('x')
+//        alert(num)
+        var last_num=webUrl.substr(num+2,1)
+//        var arrays=[];
+//        arrays=[];
+      $(".hover_a a").each(function(){
+          var attr_num=$(this).attr("attr_menu_id");
+         if(attr_num==last_num){
+             $(this).parents(".hover_a").siblings().removeClass("active");
+             $(this).parents(".hover_a").addClass("active");
+//             $(this).parents(".hover_a").addClass("active").siblings("hover_a").removeClass("active");
+             $(".hover_a").click();
+         }
+
         });
 
-        //自动加载左侧菜单
-        function showLeftMenu() {
-            var currentMenu = $("ul.topMenu li.active").find("a span").html();
-            var childMenu = [];
-            var webUrl = document.URL;
-            $("ul.topMenu li.active").find(".childTarget p").each(function () {
-                var name = $(this).attr("attr_n");
-                var link = $(this).attr("attr_l");
-                var checked = false;
-                if(webUrl == link){
-                    checked = true;
-                }
-                childMenu.push({"name":name,"link":link,"checked":checked});
-            });
-            var data = {};
-            data.parentMenu = currentMenu;
-            data.childMenu = childMenu;
-            $(".leftMenu").empty().append($("#leftMenuTmpl").tmpl(data));
-        }
+//        alert(last_num);
+//       $.each(arrays,function (i,n) {
+//           if(n==last_num){
+//               $('')
+//           }
+//       })
 
-        function menuAutoCheck(){
-            var webUrl = document.URL;
-            $(".childTarget p").each(function () {
-                var link = $(this).attr("attr_l");
-                if(webUrl == link){
-                    $(this).parent().parent().addClass("active");
-                    return false;
-                }
-            });
-            showLeftMenu();
-        }
-    });
+    }
 </script>
+

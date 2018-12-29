@@ -1,6 +1,7 @@
 package com.mingqian.dao.mall.mapper;
 
 import com.mingqian.domain.mybatis.entity.AdminMenuConfEntity;
+import com.mingqian.domain.vo.menu.MenuDetailVo;
 import com.mingqian.domain.vo.menu.MenuListVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -22,4 +23,10 @@ public interface AdminMenuConfEntityMapper {
     List<MenuListVo> selectAdminParentMenus();
 
     List<AdminMenuConfEntity> selectAdminChildMenus(@Param("list") List<Long> menuIds);
+
+    int insertAdminMenuConf(MenuDetailVo menuDetailVo);
+
+    int updateAdminMenuConf(MenuDetailVo menuDetailVo);
+
+    int deleteAdminMenuConf(@Param("menuId") Long menuId);
 }

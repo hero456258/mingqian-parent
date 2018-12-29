@@ -4,48 +4,166 @@
 <div class="page-header">
     <h1>菜单管理 </h1>
 </div>
-<#list partition as menus>
-    <#list menus as menu>
-${menu.menuName}
-    </#list>
-</#list>
 <div class="row">
-    <#list partition as menus>
-    <div class="col-sm-6">
-        <div class="tabbable tabs-top">
-            <ul class="nav nav-tabs" id="myTab3">
-                <#list menus as menu>
-
-
-                    <li class="active">
-                        <a data-toggle="tab" href="#home3">
-                            <i class="pink ace-icon fa fa-tachometer bigger-110"></i>
-                            ${menu.menuName}
-                        </a>
-                    </li>
-                </#list>
-            </ul>
-
-            <div class="tab-content">
-                <div id="home3" class="tab-pane in active">
-                    <p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
-                    <p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
-                </div>
-
-                <div id="profile3" class="tab-pane">
-                    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
-                    <p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
-                </div>
-
-                <div id="dropdown13" class="tab-pane">
-                    <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
-                    <p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
+    <#list partitions as partition>
+        <div class="col-sm-4">
+            <div class="tabbable tabs-left">
+                <ul id="myTab3" class="nav nav-tabs">
+                    <#list partition as menus>
+                        <li class="<#if menus_index == 0>active</#if>"><a href="#${menus.menuId}" data-toggle="tab" aria-expanded="false"> <i
+                                class="ace-icon fa <#if menus.fontaweCss?exists>${menus.fontaweCss}<#else>fa-tachometer</#if> bigger-110"></i> ${menus.menuName} </a></li>
+                    </#list>
+                </ul>
+                <div style="height: 240px;" class="tab-content">
+                    <#list partition as menus>
+                        <div class="tab-pane <#if menus_index == 0>in active</#if>" id="${menus.menuId}">
+                            <div class="col-md-9">
+                                <#list menus.childs as child>
+                                    <p>${child.menuName}<#if child.showMenu == '0'><font color="red">(隐藏)</font></#if>
+                                        &nbsp;
+                                        <a name="editMenuBut" data-toggle="modal" data-target="#editModal" href="javascript:void(0);"
+                                           attr_link="${child.reqUrl}" attr_show="${child.showMenu}" attr_name="${child.menuName}" attr_id="${child.menuId}"><i class="ace-icon fa fa-pencil-square-o"></i></a>
+                                        &nbsp;
+                                        <a name="delMenuBut" href="javascript:void(0);" attr_id="${child.menuId}"><i class="ace-icon fa fa-trash-o"></i></a>
+                                    </p>
+                                </#list>
+                            </div>
+                            <div class="col-md-3">
+                                <a name="addMenu" data-toggle="modal" data-target="#addModal" href="javascript:void(0);"
+                                   attr_parent_id="${menus.menuId}" attr_parent_name="${menus.menuName}">
+                                    <i class="ace-icon fa fa-plus"></i>添加</a>
+                            </div>
+                        </div>
+                    </#list>
                 </div>
             </div>
         </div>
-    </div><!-- /.col -->
     </#list>
-    <div class="vspace-6-sm"></div>
+</div>
 
+
+<!--<div class="row">
+    <#list menus as menu>
+        <div class="col-sm-6">
+            <div class="tabbable tabs-left">
+                <ul class="nav nav-tabs" id="myTab3">
+                    <#list menu as one>
+                        <li class="" id="li">
+                            <a data-toggle="tab" href="#${one.menuId}" aria-expanded="false">
+                                <i class="pink ace-icon fa <#if one.fontaweCss?exists>${one.fontaweCss}<#else>fa-tachometer</#if> bigger-110"></i>
+                                ${one.menuName}
+                            </a>
+                        </li>
+                    </#list>
+                </ul>
+
+                <div class="tab-content">
+                    <#list  menu as one>
+                        <div id="${one.menuId}" class="tab-pane">
+                            <div class="col-md-9">
+                                <#list one.childs as child>
+                                    <p>${child.menuName}
+                                        <#if child.showMenu == '0'><font color="red">(隐藏)</font></#if>
+                                        &nbsp;
+                                        <a name="editMenuBut" data-toggle="modal" data-target="#editModal" href="#;"
+                                           attr_link="${child.reqUrl}" attr_show="${child.showMenu}"
+                                           attr_name="${child.menuName}" attr_id="${child.menuId}"><i
+                                                class="ace-icon fa fa-pencil-square-o"></i></a>
+                                        &nbsp;
+                                        <a name="delMenuBut" href="#;" attr_id="${child.menuId}"><i
+                                                class="ace-icon fa fa-trash-o"></i></a>
+
+                                    </p>
+                                </#list>
+                            </div>
+
+                            <div class="col-md-3">
+                                <a name="addMenu" data-toggle="modal" data-target="#addModal" href="#;"
+                                   attr_parent_id="${one.menuId}" attr_parent_name="${one.menuName}">
+                                    <i class="ace-icon fa fa-plus"></i>添加</a>
+                            </div>
+
+                        </div>
+                    </#list>
+
+                </div>
+            </div>
+        </div>&lt;!&ndash; /.col &ndash;&gt;
+    </#list>
+
+</div>-->
+<!--添加弹出框-->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="addMenuModalTitle"></h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">菜单名称:</label>
+                        <input type="text" class="form-control" id="add_menu_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">链接地址:</label>
+                        <input type="text" class="form-control" id="add_menu_link">
+                    </div>
+                    <div class="form-group">
+                        <div class="radio">
+                            <label> <input name="addShowMenu" class="ace" checked="checked" value="1" type="radio">
+                                <span class="lbl"> 显示 </span> </label>
+                            <label> <input name="addShowMenu" class="ace" value="0" type="radio"> <span
+                                    class="lbl"> 隐藏 </span> </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="addSaveBut btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑弹出框-->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">编辑菜单</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">菜单名称:</label>
+                        <input type="text" class="form-control" id="box_menu_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">链接地址:</label>
+                        <input type="text" class="form-control" id="box_menu_link">
+                    </div>
+                    <div class="form-group">
+                        <div class="radio">
+                            <label> <input name="showMenu" class="ace" value="1" type="radio"> <span
+                                    class="lbl"> 显示 </span> </label>
+                            <label> <input name="showMenu" class="ace" value="0" type="radio"> <span
+                                    class="lbl"> 隐藏 </span> </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="editSaveBut btn btn-primary">保存</button>
+            </div>
+        </div>
+    </div>
 </div>
 </@body>
+<script src="/assets/js/bootbox.js"></script>
+<script src="/mingqian/js/adminMenuConf/adminMenuConf.js"></script>

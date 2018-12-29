@@ -5,6 +5,7 @@ import com.mingqian.domain.mybatis.entity.AdminRoleEntity;
 import com.mingqian.domain.vo.adminRole.AddAdminRoleVo;
 import com.mingqian.domain.vo.adminRole.AdminRoleDetailVo;
 import com.mingqian.domain.vo.adminRole.AdminRoleParamVo;
+import com.mingqian.domain.vo.menu.MenuListVo;
 
 import java.util.List;
 
@@ -60,4 +61,11 @@ public interface AdminRoleService {
      * @return
      */
     boolean deleteAdminRoleBy(Long roleId);
+
+    /**
+     * 加载管理员菜单
+     * @param roleId
+     * @return
+     */
+    List<MenuListVo> queryAdminRoleMenusBy(Long roleId);
 }

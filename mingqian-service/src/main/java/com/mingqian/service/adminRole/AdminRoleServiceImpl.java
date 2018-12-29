@@ -9,12 +9,17 @@ import com.mingqian.domain.vo.adminRole.AddAdminRoleVo;
 import com.mingqian.domain.vo.adminRole.AdminRoleDetailVo;
 import com.mingqian.domain.vo.adminRole.AdminRoleParamVo;
 import com.mingqian.domain.vo.menu.MenuDetailVo;
+import com.mingqian.domain.vo.menu.MenuListVo;
+import com.mingqian.service.adminMenuConf.AdminMenuConfService;
 import com.mingqian.service.adminRolePermissionRef.AdminRolePermissionRefService;
+import com.mingqian.tools.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by wanggang on 2018/12/23.
@@ -27,6 +32,9 @@ public class AdminRoleServiceImpl implements AdminRoleService {
 
     @Autowired
     private AdminRolePermissionRefService adminRolePermissionRefService;
+
+    @Autowired
+    private AdminMenuConfService adminMenuConfService;
 
     @Override
     public String queryRoleNameBy(Long roleId) {
@@ -120,5 +128,33 @@ public class AdminRoleServiceImpl implements AdminRoleService {
     @Override
     public boolean deleteAdminRoleBy(Long roleId) {
         return adminRoleEntityMapper.deleteAdminRoleBy(roleId) > 0;
+    }
+
+    /**
+     * 加载管理员菜单
+     *
+     * @param roleId
+     * @return
+     */
+    @Override
+    public List<MenuListVo> queryAdminRoleMenusBy(Long roleId) {
+        List<MenuDetailVo> roleMenus = adminRolePermissionRefService.queryRolePermissionsBy(roleId);
+        List<Long> roleMenuIds = roleMenus.stream().map(x -> x.getMenuId()).collect(Collectors.toList());
+        //加载系统所有菜单
+        List<MenuListVo> menus = adminMenuConfService.queryAdminMenus();
+        for (MenuListVo menu : menus) {
+            if(Collections.isEmpty(menu.getChilds())){
+                continue;
+            }
+            List<MenuDetailVo> checkedMenu = new ArrayList<>();
+            for (MenuDetailVo menuDetailVo : menu.getChilds()) {
+                if(roleMenuIds.contains(menuDetailVo.getMenuId())){
+                    checkedMenu.add(menuDetailVo);
+                }
+            }
+            menu.setChilds(checkedMenu);
+        }
+        //过滤无子菜单的数据
+        return menus.stream().filter(x -> !Collections.isEmpty(x.getChilds())).collect(Collectors.toList());
     }
 }

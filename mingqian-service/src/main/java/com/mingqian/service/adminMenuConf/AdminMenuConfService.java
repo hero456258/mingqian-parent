@@ -1,5 +1,6 @@
 package com.mingqian.service.adminMenuConf;
 
+import com.mingqian.domain.vo.menu.MenuDetailVo;
 import com.mingqian.domain.vo.menu.MenuListVo;
 
 import java.util.List;
@@ -14,4 +15,25 @@ public interface AdminMenuConfService {
      * @return
      */
     List<MenuListVo> queryAdminMenus();
+
+    /**
+     * 添加子菜单
+     * @param menuDetailVo
+     * @return
+     */
+    boolean addAdminMenuConf(MenuDetailVo menuDetailVo);
+
+    /**
+     * 编辑子菜单
+     * @param menuDetailVo
+     * @return
+     */
+    boolean editAdminMenuConf(MenuDetailVo menuDetailVo);
+
+    /**
+     * 删除菜单
+     * @param menuId
+     * @return
+     */
+    boolean deleteAdminMenuConf(Long menuId);
 }

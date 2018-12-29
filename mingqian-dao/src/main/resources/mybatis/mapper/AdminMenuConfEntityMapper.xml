@@ -50,6 +50,43 @@
           </foreach>
   </select>
 
+  <!--添加子菜单-->
+  <insert id="insertAdminMenuConf" parameterType="com.mingqian.domain.vo.menu.MenuDetailVo">
+    insert into ea_admin_menu_conf ( MENU_NAME,
+      REQ_URL, PARENT_MENU_ID, CREATE_TIME,
+      UPDATE_TIME, DELETED, CREATOR,
+       SHOW_MENU)
+    values ( #{menuName,jdbcType=VARCHAR},
+      #{reqUrl,jdbcType=VARCHAR}, #{parentMenuId,jdbcType=BIGINT}, now(),
+      now(), '0', 1,
+     #{showMenu,jdbcType=CHAR})
+  </insert>
+
+  <!--编辑菜单-->
+  <update id="updateAdminMenuConf">
+    update ea_admin_menu_conf
+    <set >
+      <if test="menuName != null" >
+        MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="reqUrl != null" >
+        REQ_URL = #{reqUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="parentMenuId != null" >
+        PARENT_MENU_ID = #{parentMenuId,jdbcType=BIGINT},
+      </if>
+      <if test="showMenu != null" >
+        SHOW_MENU = #{showMenu,jdbcType=CHAR},
+      </if>
+    </set>
+    where MENU_ID = #{menuId,jdbcType=BIGINT}
+  </update>
+
+  <!--删除菜单-->
+  <update id="deleteAdminMenuConf">
+    update ea_admin_menu_conf set DELETED = '1'  where MENU_ID = #{menuId}
+  </update>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
