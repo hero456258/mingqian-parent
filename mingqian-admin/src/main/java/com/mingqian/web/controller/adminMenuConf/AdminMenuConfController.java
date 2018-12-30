@@ -6,6 +6,7 @@ import com.mingqian.domain.vo.menu.MenuListVo;
 import com.mingqian.service.adminMenuConf.AdminMenuConfService;
 import com.mingqian.web.common.ApiResult;
 import com.mingqian.web.common.ApiResulter;
+import com.mingqian.web.interceptor.annotation.LoginVerify;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/adminMenuConf")
+@LoginVerify
 public class AdminMenuConfController {
 
     @Resource

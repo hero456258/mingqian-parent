@@ -5,6 +5,7 @@ import com.mingqian.service.adminAccount.AdminAccountService;
 import com.mingqian.web.common.*;
 import com.mingqian.web.controller.BaseController;
 import com.mingqian.web.interceptor.annotation.IgnoreLoginVerify;
+import com.mingqian.web.interceptor.annotation.IgnorePermissionCheck;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +26,13 @@ public class LoginController extends BaseController {
     private AdminAccountService adminAccountService;
 
     @RequestMapping("/toLogin")
+    @IgnorePermissionCheck
     public String toLogin(){
         return "/login/index";
     }
 
     @ResponseBody
+    @IgnorePermissionCheck
     @RequestMapping("/login")
     public ApiResult<Boolean> login(String userName, String password,
                                     HttpServletRequest request, HttpServletResponse response) {

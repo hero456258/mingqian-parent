@@ -49,6 +49,8 @@
     and
           ref.DELETED = '0'
     and
+          conf.SHOW_MENU = '1'
+    and
           conf.DELETED = '0'
   </select>
 

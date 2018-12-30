@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.mingqian.tools.DateUtil;
 import com.mingqian.tools.HttpClientUtils;
 import com.mingqian.web.config.PropertiesConfig;
+import com.mingqian.web.interceptor.annotation.IgnorePermissionCheck;
 import com.mingqian.web.interceptor.annotation.LoginVerify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,7 @@ public class AdminIndexController {
     private PropertiesConfig propertiesConfig;
 
     @RequestMapping("/index")
+    @IgnorePermissionCheck
     public String index(){
         return "/adminIndex/adminIndex";
     }

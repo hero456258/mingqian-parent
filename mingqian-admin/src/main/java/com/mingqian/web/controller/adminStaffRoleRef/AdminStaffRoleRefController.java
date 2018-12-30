@@ -6,6 +6,7 @@ import com.mingqian.service.adminStaffRoleRef.AdminStaffRoleRefService;
 import com.mingqian.web.common.AdminUserToken;
 import com.mingqian.web.common.ApiResult;
 import com.mingqian.web.common.ApiResulter;
+import com.mingqian.web.interceptor.annotation.LoginVerify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/user")
+@LoginVerify
 public class AdminStaffRoleRefController {
     @Autowired
     private AdminStaffRoleRefService adminStaffRoleRefService;
@@ -31,10 +33,6 @@ public class AdminStaffRoleRefController {
     public ApiResult  getPermissions(HttpServletRequest request){
         Long adminUserId = AdminUserToken.getAdminUserId(request);
         Long roleId = adminStaffRoleRefService.getRoleId(adminUserId);
-//        List<MenuListVo> roleMenu = AdminMenuUtils.getRoleMenu(roleId);
-//        if(roleMenu == null){
-//            CacheUtil
-//        }
         List<MenuListVo> menuListVos = adminRoleService.queryAdminRoleMenusBy(roleId);
         return ApiResulter.ok(menuListVos);
     }

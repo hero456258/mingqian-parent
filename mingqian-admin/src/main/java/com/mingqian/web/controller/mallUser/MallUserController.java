@@ -6,6 +6,7 @@ import com.mingqian.domain.vo.mallUser.MallUserParamVo;
 import com.mingqian.service.mallUser.MallUserService;
 import com.mingqian.web.common.ApiResult;
 import com.mingqian.web.common.ApiResulter;
+import com.mingqian.web.interceptor.annotation.LoginVerify;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ import java.util.List;
  */
 @RequestMapping("/user")
 @Controller
+@LoginVerify
 public class MallUserController {
 
     private final String FILE_NAME = "会员信息.xls";

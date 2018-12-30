@@ -14,6 +14,7 @@ import com.mingqian.tools.Collections;
 import com.mingqian.web.common.ApiResult;
 import com.mingqian.web.common.ApiResulter;
 import com.mingqian.web.exception.ErrorInputException;
+import com.mingqian.web.interceptor.annotation.LoginVerify;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +32,7 @@ import java.util.stream.Collectors;
  */
 @RequestMapping("/adminRole")
 @Controller
+@LoginVerify
 public class AdminRoleController {
 
     @Resource
