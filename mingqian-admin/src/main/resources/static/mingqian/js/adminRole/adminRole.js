@@ -20,7 +20,7 @@ function loadTableData(isV, obj, showWarning) {
                 var rows = s._iDisplayLength;
 
                 d = {};
-                d.roleName = $("#roleName").val();
+                d.userName = $("#roleName").val();
                 d.start = start;
                 d.rows = rows;
                 return d;

@@ -1,0 +1,44 @@
+<#include "/commons/page_layout.html"/>
+<@html title="用户列表"></@html>
+<link rel="stylesheet" href="/mingqian/css/tableStyle.css">
+
+<@body>
+<div class="page-header">
+    <h1>会员列表</h1>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <button class="btn btn-info" type="button" id="addDepartment">添加会员</button>
+    </div>
+    <div class="col-sm-2">
+        <button class="btn btn-info" type="button" id="exportEcxel">导出Excel</button>
+    </div>
+
+    <div class="col-sm-2 col-sm-offset-3">
+        <input type="text" id="userName" class="form-control search-query" placeholder="用户名称"/>
+    </div>
+    <div class="col-sm-2">
+        <span class="input-group-btn"> <button type="button" class="btn btn-inverse btn-white" id="select">查询 </button> </span>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="departmentTable"
+           role="grid"
+           cellspacing="0" width="100%" aria-describedby="dynamic-table_info">
+
+    </table>
+</div>
+</@body>
+<script type="text/javascript" src="/jquery-tmpl/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="/jquery-tmpl/jquery.tmplPlus.min.js"></script>
+<script src="/assets/js/wizard.min.js"></script>
+<link rel="stylesheet" href="/assets/css/dropzone.min.css">
+<script src="/assets/js/dropzone.min.js"></script>
+<script type="text/javascript" src="/dataTable/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/dataTable/js/dataTables.bootstrap.js"></script>
+<script src="/assets/js/bootbox.js"></script>
+<script type="text/javascript" src="${contextPath}/mingqian/js/mallUser/user.js"></script>

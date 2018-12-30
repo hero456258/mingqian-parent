@@ -58,11 +58,18 @@ public class BasePageVo implements Serializable {
         return rowStart;
     }
 
+
     public Long getRowEnd() {
-        if(start != null && start > 0){
-            this.rowEnd = start * rows;
+        if(rows != null && rows > 0){
+            this.rowEnd = rows;
         }
-        return rowEnd;
+            return rowEnd;
     }
 
+    public void setRowEnd(Long rowEnd) {
+        if(rows != null && rows > 0){
+            this.rowEnd = rows;
+        }
+        this.rowEnd = this.rows;
+    }
 }

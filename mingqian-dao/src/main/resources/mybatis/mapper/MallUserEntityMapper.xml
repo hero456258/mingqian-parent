@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingqian.dao.mall.mapper.MallUserEntityMapper">
+    <resultMap id="BaseResultMap" type="com.mingqian.domain.mybatis.entity.MallUserEntity">
+        <id column="ID" property="id" jdbcType="BIGINT"/>
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR"/>
+        <result column="USER_CARD" property="userCard" jdbcType="VARCHAR"/>
+        <result column="USER_MOBILE" property="userMobile" jdbcType="VARCHAR"/>
+        <result column="USER_ADDRESS" property="userAddress" jdbcType="VARCHAR"/>
+        <result column="USER_SCHOOL" property="userSchool" jdbcType="VARCHAR"/>
+        <result column="USER_SPECIALTY" property="userSpecialty" jdbcType="VARCHAR"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="DELETED" property="deleted" jdbcType="CHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, USER_NAME, USER_CARD, USER_MOBILE, USER_ADDRESS, USER_SCHOOL, USER_SPECIALTY,
+    CREATE_TIME, UPDATE_TIME, DELETED
+  </sql>
+
+    <!--会员列表分页-->
+    <select id="selectMallUserList" parameterType="com.mingqian.domain.vo.mallUser.MallUserParamVo" resultMap="BaseResultMap">
+        select
+               <include refid="Base_Column_List"/>
+        from
+               ec_mall_user
+        where
+               1=1
+        and
+              DELETED = '0'
+        <if test="userName != null and userName!=''">
+            and USER_NAME like CONCAT(CONCAT('%',#{userName}),'%')
+        </if>
+        order by
+               CREATE_TIME desc
+        limit #{rowStart}, #{rowEnd}
+
+    </select>
+
+
+    <select id="selectMallUserListCount" resultType="java.lang.Integer">
+      select
+              count(*)
+      from
+              ec_mall_user
+      where
+              1=1
+      and
+              DELETED = '0'
+        <if test="userName != null and userName!=''">
+            and USER_NAME like CONCAT(CONCAT('%',#{userName}),'%')
+        </if>
+    </select>
+
+    <select id="selectMallUserExcel" parameterType="com.mingqian.domain.vo.mallUser.MallUserParamVo" resultMap="BaseResultMap">
+        select
+             <include refid="Base_Column_List"/>
+        from
+              ec_mall_user
+        where
+              1=1
+        and
+              DELETED = '0'
+        <if test="userName != null and userName!=''">
+            and USER_NAME like CONCAT(CONCAT('%',#{userName}),'%')
+        </if>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from ec_mall_user
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ec_mall_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.mingqian.domain.mybatis.entity.MallUserEntity">
+    insert into ec_mall_user (id, user_name, user_card, 
+      user_mobile, user_address, user_school, 
+      user_specialty, create_time, update_time, 
+      deleted)
+    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{userCard,jdbcType=VARCHAR}, 
+      #{userMobile,jdbcType=VARCHAR}, #{userAddress,jdbcType=VARCHAR}, #{userSchool,jdbcType=VARCHAR}, 
+      #{userSpecialty,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{deleted,jdbcType=CHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.mingqian.domain.mybatis.entity.MallUserEntity">
+        insert into ec_mall_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="userCard != null">
+                user_card,
+            </if>
+            <if test="userMobile != null">
+                user_mobile,
+            </if>
+            <if test="userAddress != null">
+                user_address,
+            </if>
+            <if test="userSchool != null">
+                user_school,
+            </if>
+            <if test="userSpecialty != null">
+                user_specialty,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userCard != null">
+                #{userCard,jdbcType=VARCHAR},
+            </if>
+            <if test="userMobile != null">
+                #{userMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="userAddress != null">
+                #{userAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="userSchool != null">
+                #{userSchool,jdbcType=VARCHAR},
+            </if>
+            <if test="userSpecialty != null">
+                #{userSpecialty,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.mingqian.domain.mybatis.entity.MallUserEntity">
+        update ec_mall_user
+        <set>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userCard != null">
+                user_card = #{userCard,jdbcType=VARCHAR},
+            </if>
+            <if test="userMobile != null">
+                user_mobile = #{userMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="userAddress != null">
+                user_address = #{userAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="userSchool != null">
+                user_school = #{userSchool,jdbcType=VARCHAR},
+            </if>
+            <if test="userSpecialty != null">
+                user_specialty = #{userSpecialty,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=CHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.mingqian.domain.mybatis.entity.MallUserEntity">
+    update ec_mall_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_card = #{userCard,jdbcType=VARCHAR},
+      user_mobile = #{userMobile,jdbcType=VARCHAR},
+      user_address = #{userAddress,jdbcType=VARCHAR},
+      user_school = #{userSchool,jdbcType=VARCHAR},
+      user_specialty = #{userSpecialty,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      deleted = #{deleted,jdbcType=CHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
