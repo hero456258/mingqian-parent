@@ -23,4 +23,12 @@ public interface AdminRolePermissionRefService {
      * @return
      */
     List<MenuDetailVo> queryRolePermissionsBy(Long roleId);
+
+
+    /**
+     * 查看角色的权限和隐藏的菜单
+     * @param roleId
+     * @return
+     */
+    List<MenuDetailVo> queryRolePermissionsAndShowMenusBy(Long roleId);
 }

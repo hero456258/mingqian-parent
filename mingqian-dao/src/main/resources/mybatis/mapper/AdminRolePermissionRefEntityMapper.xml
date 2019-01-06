@@ -49,6 +49,24 @@
     and
           ref.DELETED = '0'
     and
+          conf.DELETED = '0'
+  </select>
+
+  <select id="selectRolePermissionsAndShowMenusBy" resultType="com.mingqian.domain.vo.menu.MenuDetailVo">
+       select
+          ref.MENU_ID as menuId,
+          conf.MENU_NAME as menuName,
+          conf.REQ_URL as reqUrl,
+          conf.PARENT_MENU_ID as parentMenuId
+    from
+          ea_admin_role_permission_ref ref
+    inner join
+          ea_admin_menu_conf conf
+    on
+          ref.MENU_ID = conf.MENU_ID
+    where
+          ref.ROLE_ID = #{roleId}
+    and
           conf.SHOW_MENU = '1'
     and
           conf.DELETED = '0'

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2018-12-26 16:34:31
+Date: 2018-12-29 23:24:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,7 +30,7 @@ CREATE TABLE `ea_admin_account` (
   `UPDATE_TIME` datetime NOT NULL COMMENT '更新时间',
   `STATUS` char(2) NOT NULL DEFAULT '0' COMMENT '启用状态0禁用 1启用',
   PRIMARY KEY (`USER_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='管理员账户表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='管理员账户表';
 
 -- ----------------------------
 -- Records of ea_admin_account
@@ -38,6 +38,7 @@ CREATE TABLE `ea_admin_account` (
 INSERT INTO `ea_admin_account` VALUES ('1', 'admin', '21232F297A57A5A743894A0E4A801FC3', '鸣谦', 'ydy465258@16.com', '1001', '2018-12-20 16:08:33', '2018-12-20 16:08:35', '1');
 INSERT INTO `ea_admin_account` VALUES ('2', 'zhangsan', '6512BD43D9CAA6E02C990B0A82652DCA', '张三', 'zhansan@163.com', null, '2018-12-24 10:08:35', '2018-12-24 10:08:35', '0');
 INSERT INTO `ea_admin_account` VALUES ('3', '1829010120029', '511B0D5F341BDDBD9A5348923B48D14C', '12', '123@163.com', null, '2018-12-25 17:02:20', '2018-12-25 17:02:20', '1');
+INSERT INTO `ea_admin_account` VALUES ('4', 'user', '21232F297A57A5A743894A0E4A801FC3', 'user', 'user', null, '2018-12-28 15:35:46', '2018-12-28 15:35:46', '1');
 
 -- ----------------------------
 -- Table structure for ea_admin_department
@@ -79,7 +80,7 @@ CREATE TABLE `ea_admin_menu_conf` (
   `FONTAWE_CSS` varchar(120) DEFAULT NULL COMMENT 'fontawesome图标样式',
   `SHOW_MENU` char(2) NOT NULL DEFAULT '1' COMMENT '是否显示0不显示 1显示',
   PRIMARY KEY (`MENU_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='菜单配置表';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='菜单配置表';
 
 -- ----------------------------
 -- Records of ea_admin_menu_conf
@@ -90,6 +91,9 @@ INSERT INTO `ea_admin_menu_conf` VALUES ('3', '会员管理', '会员管理', nu
 INSERT INTO `ea_admin_menu_conf` VALUES ('4', '系统角色', '系统角色', '/adminRole/toList', '1', '2018-12-25 09:50:55', '2018-12-25 09:50:58', '0', '0', null, '1');
 INSERT INTO `ea_admin_menu_conf` VALUES ('5', '添加角色', '添加角色', '/adminRole/toAddAdminRolePage', '1', '2018-12-25 09:52:01', '2018-12-25 09:52:04', '0', '0', null, '1');
 INSERT INTO `ea_admin_menu_conf` VALUES ('6', '员工列表', '员工列表', '/adminAccount/toList', '1', '2018-12-25 09:53:11', '2018-12-25 09:53:14', '0', '0', null, '1');
+INSERT INTO `ea_admin_menu_conf` VALUES ('7', '会员列表', null, '/user/toList', '3', '2018-12-27 11:47:43', '2018-12-27 11:47:43', '0', '1', null, '1');
+INSERT INTO `ea_admin_menu_conf` VALUES ('8', '查看用户信息', null, '/user/userInfo', '3', '2018-12-27 11:50:38', '2018-12-27 11:50:38', '1', '1', null, '1');
+INSERT INTO `ea_admin_menu_conf` VALUES ('9', '会员信息展示', null, '/user/userInfo', '3', '2018-12-27 15:20:27', '2018-12-27 15:20:27', '0', '1', null, '1');
 
 -- ----------------------------
 -- Table structure for ea_admin_role
@@ -187,6 +191,11 @@ INSERT INTO `ea_admin_role_permission_ref` VALUES ('13', '6', '2018-12-26 16:24:
 INSERT INTO `ea_admin_role_permission_ref` VALUES ('16', '4', '2018-12-26 16:24:50', '2018-12-26 16:24:50', '0', '0');
 INSERT INTO `ea_admin_role_permission_ref` VALUES ('16', '5', '2018-12-26 16:24:50', '2018-12-26 16:24:50', '0', '0');
 INSERT INTO `ea_admin_role_permission_ref` VALUES ('16', '6', '2018-12-26 16:24:50', '2018-12-26 16:24:50', '0', '0');
+INSERT INTO `ea_admin_role_permission_ref` VALUES ('1', '4', '2018-12-28 15:36:15', '2018-12-28 15:36:15', '0', '0');
+INSERT INTO `ea_admin_role_permission_ref` VALUES ('1', '5', '2018-12-28 15:36:15', '2018-12-28 15:36:15', '0', '0');
+INSERT INTO `ea_admin_role_permission_ref` VALUES ('1', '6', '2018-12-28 15:36:15', '2018-12-28 15:36:15', '0', '0');
+INSERT INTO `ea_admin_role_permission_ref` VALUES ('1', '7', '2018-12-28 15:36:15', '2018-12-28 15:36:15', '0', '0');
+INSERT INTO `ea_admin_role_permission_ref` VALUES ('1', '9', '2018-12-28 15:36:15', '2018-12-28 15:36:15', '0', '0');
 
 -- ----------------------------
 -- Table structure for ea_admin_staff
@@ -200,13 +209,14 @@ CREATE TABLE `ea_admin_staff` (
   `UPDATE_TIME` datetime NOT NULL COMMENT '更新时间',
   `DELETED` varchar(2) NOT NULL DEFAULT '0' COMMENT '删除状态 ：0未删除 1已删除',
   PRIMARY KEY (`STAFF_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='员工表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='员工表';
 
 -- ----------------------------
 -- Records of ea_admin_staff
 -- ----------------------------
 INSERT INTO `ea_admin_staff` VALUES ('2', '张三', '1', '2018-12-24 10:08:35', '2018-12-24 10:08:35', '0');
 INSERT INTO `ea_admin_staff` VALUES ('3', '12', '1', '2018-12-25 17:02:20', '2018-12-25 17:02:20', '0');
+INSERT INTO `ea_admin_staff` VALUES ('4', 'user', '2', '2018-12-28 15:35:46', '2018-12-28 15:35:46', '0');
 
 -- ----------------------------
 -- Table structure for ea_admin_staff_role_ref
@@ -226,3 +236,4 @@ CREATE TABLE `ea_admin_staff_role_ref` (
 INSERT INTO `ea_admin_staff_role_ref` VALUES ('2', '1', '2018-12-20 16:20:11', '2018-12-20 16:20:13', '123');
 INSERT INTO `ea_admin_staff_role_ref` VALUES ('1', '2', '2018-12-24 10:08:35', '2018-12-24 10:08:35', '0');
 INSERT INTO `ea_admin_staff_role_ref` VALUES ('2', '3', '2018-12-25 17:02:20', '2018-12-25 17:02:29', '0');
+INSERT INTO `ea_admin_staff_role_ref` VALUES ('1', '4', '2018-12-28 15:35:46', '2018-12-28 15:35:57', '0');

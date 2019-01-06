@@ -44,4 +44,16 @@ public class AdminRolePermissionRefServiceImpl implements AdminRolePermissionRef
         return adminRolePermissionRefEntityMapper.selectAdminRolePermissionBy(roleId);
     }
 
+    /**
+     * 查看角色的权限和隐藏的菜单
+     *
+     * @param roleId
+     * @return
+     */
+    @Override
+    public List<MenuDetailVo> queryRolePermissionsAndShowMenusBy(Long roleId) {
+        return adminRolePermissionRefEntityMapper.selectRolePermissionsAndShowMenusBy(roleId);
+    }
+
+
 }

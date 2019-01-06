@@ -138,7 +138,7 @@ public class AdminRoleServiceImpl implements AdminRoleService {
      */
     @Override
     public List<MenuListVo> queryAdminRoleMenusBy(Long roleId) {
-        List<MenuDetailVo> roleMenus = adminRolePermissionRefService.queryRolePermissionsBy(roleId);
+        List<MenuDetailVo> roleMenus = adminRolePermissionRefService.queryRolePermissionsAndShowMenusBy(roleId);
         List<Long> roleMenuIds = roleMenus.stream().map(x -> x.getMenuId()).collect(Collectors.toList());
         //加载系统所有菜单
         List<MenuListVo> menus = adminMenuConfService.queryAdminMenus();
@@ -157,4 +157,5 @@ public class AdminRoleServiceImpl implements AdminRoleService {
         //过滤无子菜单的数据
         return menus.stream().filter(x -> !Collections.isEmpty(x.getChilds())).collect(Collectors.toList());
     }
+
 }

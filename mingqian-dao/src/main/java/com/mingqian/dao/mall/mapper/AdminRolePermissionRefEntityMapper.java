@@ -16,4 +16,7 @@ public interface AdminRolePermissionRefEntityMapper {
     int insertAdminRolePermissionRef(@Param("roleId") Long roleId, @Param("list") List<Long> menuIds);
 
     List<MenuDetailVo> selectAdminRolePermissionBy(@Param("roleId") Long roleId);
+
+
+    List<MenuDetailVo> selectRolePermissionsAndShowMenusBy( @Param("roleId") Long roleId);
 }
